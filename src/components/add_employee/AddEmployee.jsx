@@ -10,6 +10,26 @@ function AddEmployee() {
   const [schedule, setSchedule] = useState([]);
   const [shift, setShift] = useState();
 
+  const [arr, setArr] = useState([""]);
+
+  const addInput = () => {
+    setArr((s) => {
+      return [...s, ""];
+    });
+  };
+
+  const handleChangeLeave = (e) => {
+    e.preventDefault();
+
+    const index = e.target.id;
+    setArr((s) => {
+      const newArr = s.slice();
+      newArr[index] = e.target.value;
+
+      return newArr;
+    });
+  };
+
   const handleChange = (e) => {
     // Destructuring
     const { value, checked } = e.target;
@@ -31,7 +51,7 @@ function AddEmployee() {
     await setDoc(employeeRef, {
       fullName: fullName,
       eid: eid,
-      leaveCount: leaveCount,
+      leave: arr,
       schedule: schedule,
       shift: shift,
     });
@@ -51,8 +71,8 @@ function AddEmployee() {
         handleClick();
       }}
     >
-      <div className="container max-w-screen-lg max-h-[500px] overflow-scroll md:overflow-hidden">
-        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
+      <div className="container max-w-screen-lg">
+        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
             <div className="text-gray-600">
               <p className="font-medium text-lg">Add Employee</p>
@@ -86,19 +106,33 @@ function AddEmployee() {
                     }}
                   />
                 </div>
-                <div className="md:col-span-5">
-                  <label>Total Leave</label>
-                  <input
-                    type="textbox"
-                    required
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    placeholder="Total Leave"
-                    value={leaveCount}
-                    onChange={(e) => {
-                      setLeaveCount(e.target.value);
+                <div className="md:col-span-5 gap-5 flex flex-col">
+                  {arr.map((value, index) => {
+                    return (
+                      <div>
+                        <label>Leave (DD/MM/YYYY)</label>
+                        <input
+                          type="text"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          placeholder="Leave"
+                          value={value}
+                          id={index}
+                          onChange={handleChangeLeave}
+                        />
+                      </div>
+                    );
+                  })}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      addInput();
                     }}
-                  />
+                    className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                  >
+                    Add
+                  </button>
                 </div>
+
                 <div className="md:col-span-5">
                   <label>Shift</label>
                   <input
