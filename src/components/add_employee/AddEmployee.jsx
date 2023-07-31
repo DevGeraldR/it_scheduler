@@ -6,30 +6,24 @@ import { doc, setDoc } from "firebase/firestore";
 function AddEmployee() {
   const [fullName, setFullName] = useState();
   const [eid, setEID] = useState();
-  const [leaveCount, setLeaveCount] = useState();
   const [schedule, setSchedule] = useState([]);
-  const [shift, setShift] = useState();
+  const [shift, setShift] = useState('Morning');
+  // State to keep track of the selected time
+  const [startTime, setStartTime] = useState('00:00');
+  const [endTime, setEndTime] = useState('12:00');
 
-  const [arr, setArr] = useState([""]);
-
-  const addInput = () => {
-    setArr((s) => {
-      return [...s, ""];
-    });
+  // Event handler for when the user changes the time 
+  const handleStartTimeChange = (event) => {
+    setStartTime(event.target.value);
   };
 
-  const handleChangeLeave = (e) => {
-    e.preventDefault();
-
-    const index = e.target.id;
-    setArr((s) => {
-      const newArr = s.slice();
-      newArr[index] = e.target.value;
-
-      return newArr;
-    });
+  const handleEndTimeChange = (event) => {
+    setEndTime(event.target.value);
   };
 
+  const handleShiftChange = (event) => {
+    setShift(event.target.value);
+  };
   const handleChange = (e) => {
     // Destructuring
     const { value, checked } = e.target;
@@ -51,16 +45,18 @@ function AddEmployee() {
     await setDoc(employeeRef, {
       fullName: fullName,
       eid: eid,
-      leave: arr,
       schedule: schedule,
       shift: shift,
+      startTime: startTime,
+      endTime: endTime,
     });
 
     alert("Employee Added");
-
     setFullName("");
     setEID("");
-    setLeaveCount("");
+    setShift('Morning');
+    setStartTime('00:00')
+    setEndTime('12:00')
   };
 
   return (
@@ -71,8 +67,8 @@ function AddEmployee() {
         handleClick();
       }}
     >
-      <div className="container max-w-screen-lg">
-        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+      <div className="container max-w-screen-lg max-h-[900px] overflow-scroll md:overflow-hidden">
+        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
             <div className="text-gray-600">
               <p className="font-medium text-lg">Add Employee</p>
@@ -106,47 +102,39 @@ function AddEmployee() {
                     }}
                   />
                 </div>
-                <div className="md:col-span-5 gap-5 flex flex-col">
-                  {arr.map((value, index) => {
-                    return (
-                      <div>
-                        <label>Leave (DD/MM/YYYY)</label>
-                        <input
-                          type="text"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          placeholder="Leave"
-                          value={value}
-                          id={index}
-                          onChange={handleChangeLeave}
-                        />
-                      </div>
-                    );
-                  })}
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addInput();
-                    }}
-                    className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                  >
-                    Add
-                  </button>
-                </div>
-
                 <div className="md:col-span-5">
-                  <label>Shift</label>
-                  <input
-                    type="text"
-                    required
+                  <label>Select Shift</label>
+                  {' '}
+                  <select
+                    id="shift" value={shift}
+                    type="combobox"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    placeholder="Shift"
-                    value={shift}
-                    onChange={(e) => {
-                      setShift(e.target.value);
-                    }}
+                    onChange={handleShiftChange}>
+                    <option value="Morning">Morning</option>
+                    <option value="Night">Night</option>
+                  </select>
+                </div>
+                <div className="md:col-span-5">
+                  <label >Start Time:</label>
+                  {' '}
+                  <input
+                    type="time"
+                    id="startTime"
+                    className="h-10 border mt-1 rounded px-4 w-500  bg-gray-50"
+                    value={startTime}
+                    onChange={handleStartTimeChange}
+                  />
+                  {' '}
+                  <label >End Time:</label>
+                  {' '}
+                  <input
+                    type="time"
+                    id="endTime"
+                    className="h-10 border mt-1 rounded px-4 w-500 bg-gray-50"
+                    value={endTime}
+                    onChange={handleEndTimeChange}
                   />
                 </div>
-
                 {/*To be optimized*/}
                 <div className="md:col-span-5">
                   <label>Schedule</label>
@@ -287,6 +275,7 @@ function AddEmployee() {
       </div>
     </form>
   );
+
 }
 
 export default AddEmployee;

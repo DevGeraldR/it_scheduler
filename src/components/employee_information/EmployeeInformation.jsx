@@ -20,7 +20,7 @@ function EmployeeInformation() {
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
   const [selectedDate, setSelectedDate] = useState(currentDate);
-
+  // eslint-disable-next-line
   const handleClickRemove = async (eid) => {
     const confirm = window.confirm("Are you sure you want to remove employee?");
     if (confirm) {
@@ -32,7 +32,7 @@ function EmployeeInformation() {
   };
 
   return (
-    <div className="max-h-screen w-full pb-[60px] bg-gray-100 h-full">
+    <div className="overflow-scroll max-h-screen w-full pb-[60px] bg-gray-100 h-full">
       <div className="flex justify-center">
         <div className="m-5 w-full max-w-2xl bg-white p-5 rounded-xl shadow-lg">
           <div className="flex pb-5 gap-5 items-center lg:divide-x sm:w-1/2 justify-center flex-col mx-auto">
@@ -120,6 +120,8 @@ function EmployeeInformation() {
                     <li>Name: {employee.fullName}</li>
                     <li>EID: {employee.eid}</li>
                     <li>Shift: {employee.shift}</li>
+                    <li>StartTime: {employee.startTime}</li>
+                    <li>EndTime: {employee.endTime}</li>
                   </ul>
                 </div>
                 <div>
