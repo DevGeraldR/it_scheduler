@@ -8,6 +8,7 @@ import Homepage from "./components/home/Homepage";
 import AddEmployee from "./components/add_employee/AddEmployee";
 import EmployeeInformation from "./components/employee_information/EmployeeInformation";
 import { AuthenticationRoute } from "./components/route/AuthenticationRoute";
+import AddLeave from "./components/employee_information/AddLeave";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                 path="/homepage/employeeInformation"
                 element={<EmployeeInformation />}
               />
+              <Route path="/homepage/addLeave" element={<AddLeave />} />
             </Route>
           </Route>
         </Routes>
