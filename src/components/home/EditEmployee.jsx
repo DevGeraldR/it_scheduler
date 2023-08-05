@@ -1,0 +1,291 @@
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useGlobal } from "../context/Context";
+import { db } from "../firebase/Firebase";
+import { doc, updateDoc } from "firebase/firestore";
+
+function EditEmployee() {
+    const { employeeId } = useParams();
+    const { employee, setEmployee } = useGlobal();
+    const navigate = useNavigate();
+    const formatTimeTo12Hour = (time) => {
+
+        const [hours, minutes] = time.split(":");
+        const timeObject = new Date(0, 0, 0, hours, minutes);
+        return timeObject.toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+        });
+    };
+    const [fullName, setFullName] = useState(employee.fullName);
+    const [schedule, setSchedule] = useState(employee.schedule);
+    const [shift, setShift] = useState(employee.shift);
+    const [startTime, setStartTime] = useState(employee.startTime);
+    const [endTime, setEndTime] = useState(employee.endTime);
+
+    const handleShiftChange = (e) => {
+        setShift(e.target.value);
+    };
+
+    const handleStartTimeChange = (e) => {
+        setStartTime(e.target.value);
+    };
+
+    const handleEndTimeChange = (e) => {
+        setEndTime(e.target.value);
+    };
+
+    const handleChange = (e) => {
+        const { value, checked } = e.target;
+        if (checked) {
+            setSchedule([...schedule, value]);
+        } else {
+            setSchedule(schedule.filter((day) => day !== value));
+        }
+    };
+
+    // Function to convert time to 12-hour format
+
+
+    const handleEdit = async () => {
+        const employeeRef = doc(db, "Employees", employeeId);
+
+        // Prepare the data to be updated
+        const updatedData = {
+            fullName: fullName,
+            schedule: schedule,
+            shift: shift,
+        };
+
+        // Only update the start time if it is edited
+        if (startTime !== employee.startTime) {
+            updatedData.startTime = formatTimeTo12Hour(startTime);
+        } else {
+            updatedData.startTime = employee.startTime;
+        }
+
+        // Only update the end time if it is edited
+        if (endTime !== employee.endTime) {
+            updatedData.endTime = formatTimeTo12Hour(endTime);
+        } else {
+            updatedData.endTime = employee.endTime;
+        }
+
+        await updateDoc(employeeRef, updatedData);
+
+        setEmployee({
+            ...employee,
+            ...updatedData,
+        });
+
+        navigate("/homepage");
+    };
+
+    return (
+        <div>
+            <form className="flex flex-col min-h-full p-6 bg-gray-100 flex items-center justify-center"
+                onSubmit={(e) => e.preventDefault()}>
+                <div className="container max-w-screen-lg max-h-[900px] overflow-scroll md:overflow-hidden">
+                    <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
+                        <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                            <div className="text-gray-600">
+                                <p className="font-medium text-lg">Edit Employee</p>
+                                <p>Edit the employee's details.</p>
+                            </div>
+                            <div className="lg:col-span-2">
+                                <div className="grid gap-4 gap-y-4 text-sm grid-cols-1 md:grid-cols-5"></div>
+                                <div className="md:col-span-5">
+                                    <label>Full Name</label>
+                                    <input
+                                        type="text"
+                                        required
+                                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                        placeholder="Full Name"
+                                        value={fullName}
+                                        onChange={(e) => {
+                                            setFullName(e.target.value);
+                                        }}
+                                    />
+                                </div>
+                                <div className="md:col-span-5">
+                                    <label>Select Shift</label>{" "}
+                                    <select
+                                        id="shift"
+                                        value={shift}
+                                        type="combobox"
+                                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                                        onChange={handleShiftChange}
+                                    >
+                                        <option value="Morning">Morning</option>
+                                        <option value="Night">Night</option>
+                                    </select>
+                                </div>
+                                <div className="md:col-span-5">
+
+                                    <label>Start Time:</label>{" "}
+                                    <input
+                                        type="time"
+                                        id="startTime"
+                                        className="h-10 border mt-1 rounded px-4 w-500 bg-gray-50"
+                                        value={startTime}
+                                        onChange={handleStartTimeChange}
+                                    />
+                                    {" "}
+                                    <label>End Time:</label>{" "}
+                                    <input
+                                        type="time"
+                                        id="endTime"
+                                        className="h-10 border mt-1 rounded px-4 w-500 bg-gray-50"
+                                        value={endTime}
+                                        onChange={handleEndTimeChange}
+                                    />
+                                </div>
+                                <div className="md:col-span-5">
+                                    <label>Schedule</label>
+                                    <ul className="items-center w-full text-gray-500 bg-white sm:flex">
+                                        <li className="w-full border border-gray-200">
+                                            <div className="flex items-center pl-3">
+                                                <input
+                                                    id="monday-checkbox-list"
+                                                    type="checkbox"
+                                                    className="w-4 h-4"
+                                                    onChange={handleChange}
+                                                    value="M"
+                                                    checked={schedule.includes("M")}
+                                                />
+                                                <label
+                                                    htmlFor="monday-checkbox-list"
+                                                    className="w-full py-3 ml-2 text-sm font-medium"
+                                                >
+                                                    Monday
+                                                </label>
+                                            </div>
+                                            <li className="w-full border border-gray-200">
+                                                <div className="flex items-center pl-3">
+                                                    <input
+                                                        id="tuesday-checkbox-list"
+                                                        type="checkbox"
+                                                        className="w-4 h-4"
+                                                        onChange={handleChange}
+                                                        value="T"
+                                                        checked={schedule.includes("T")}
+                                                    />
+                                                    <label
+                                                        for="tuesday-checkbox-list"
+                                                        className="w-full py-3 ml-2 text-sm font-medium"
+                                                    >
+                                                        Tuesday
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border border-gray-200">
+                                                <div className="flex items-center pl-3">
+                                                    <input
+                                                        id="wednesday-checkbox-list"
+                                                        type="checkbox"
+                                                        onChange={handleChange}
+                                                        value="W"
+                                                        checked={schedule.includes("W")}
+                                                        className="w-4 h-4"
+                                                    />
+                                                    <label
+                                                        for="wednesday-checkbox-list"
+                                                        className="w-full py-3 ml-2 text-sm font-medium"
+                                                    >
+                                                        Wednesday
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border border-gray-200">
+                                                <div className="flex items-center pl-3">
+                                                    <input
+                                                        id="thursday-checkbox-list"
+                                                        type="checkbox"
+                                                        onChange={handleChange}
+                                                        value="TH"
+                                                        checked={schedule.includes("TH")}
+                                                        className="w-4 h-4"
+                                                    />
+                                                    <label
+                                                        for="thursday-checkbox-list"
+                                                        className="w-full py-3 ml-2 text-sm font-medium"
+                                                    >
+                                                        Thursday
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border border-gray-200">
+                                                <div className="flex items-center pl-3">
+                                                    <input
+                                                        id="friday-checkbox-list"
+                                                        type="checkbox"
+                                                        onChange={handleChange}
+                                                        value="F"
+                                                        checked={schedule.includes("F")}
+                                                        className="w-4 h-4"
+                                                    />
+                                                    <label
+                                                        for="friday-checkbox-list"
+                                                        className="w-full py-3 ml-2 text-sm font-medium"
+                                                    >
+                                                        Friday
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border border-gray-200">
+                                                <div className="flex items-center pl-3">
+                                                    <input
+                                                        id="saturday-checkbox-list"
+                                                        type="checkbox"
+                                                        onChange={handleChange}
+                                                        value="SAT"
+                                                        checked={schedule.includes("SAT")}
+                                                        className="w-4 h-4"
+                                                    />
+                                                    <label
+                                                        for="saturday-checkbox-list"
+                                                        className="w-full py-3 ml-2 text-sm font-medium"
+                                                    >
+                                                        Saturday
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li className="w-full border border-gray-200">
+                                                <div className="flex items-center pl-3">
+                                                    <input
+                                                        id="sunday-checkbox-list"
+                                                        type="checkbox"
+                                                        onChange={handleChange}
+                                                        value="SU"
+                                                        checked={schedule.includes("SU")}
+                                                        className="w-4 h-4"
+                                                    />
+                                                    <label
+                                                        for="sunday-checkbox-list"
+                                                        className="w-full py-3 ml-2 text-sm font-medium "
+                                                    >
+                                                        Sunday
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button type="submit" onClick={handleEdit}
+                    className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                >
+
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    );
+}
+
+export default EditEmployee;

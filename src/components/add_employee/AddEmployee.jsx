@@ -12,6 +12,16 @@ function AddEmployee() {
   const [startTime, setStartTime] = useState('00:00');
   const [endTime, setEndTime] = useState('12:00');
 
+  // Function to convert time to 12-hour format
+  const formatTimeTo12Hour = (time) => {
+    const [hours, minutes] = time.split(":");
+    const timeObject = new Date(0, 0, 0, hours, minutes);
+    return timeObject.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  };
   // Event handler for when the user changes the time 
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -47,16 +57,14 @@ function AddEmployee() {
       eid: eid,
       schedule: schedule,
       shift: shift,
-      startTime: startTime,
-      endTime: endTime,
+      startTime: formatTimeTo12Hour(startTime),
+      endTime: formatTimeTo12Hour(endTime),
     });
 
     alert("Employee Added");
     setFullName("");
     setEID("");
     setShift('Morning');
-    setStartTime('00:00')
-    setEndTime('12:00')
   };
 
   return (
@@ -230,7 +238,7 @@ function AddEmployee() {
                           id="saturday-checkbox-list"
                           type="checkbox"
                           onChange={handleChange}
-                          value="S"
+                          value="SAT"
                           className="w-4 h-4"
                         />
                         <label

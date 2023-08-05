@@ -15,7 +15,7 @@ function EmployeeInformation() {
   const navigate = useNavigate();
 
   /**Calendar */
-  const days = ["S", "M", "TH", "W", "T", "F", "SU"];
+  const days = ["SU", "M", "T", "W", "TH", "F", "SAT"];
 
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
@@ -99,7 +99,7 @@ function EmployeeInformation() {
                               employee.leave?.some(
                                 (leave) =>
                                   leave.startDate <=
-                                    date.format("YYYY-MM-DD") &&
+                                  date.format("YYYY-MM-DD") &&
                                   leave.endDate >= date.format("YYYY-MM-DD")
                               )
                                 ? "text-red-500 font-bold"
@@ -141,10 +141,10 @@ function EmployeeInformation() {
                   {employee.schedule.includes(days[selectedDate.day()]) ? (
                     <span>Work Day</span>
                   ) : employee.leave?.some(
-                      (leave) =>
-                        leave.startDate <= selectedDate.format("YYYY-MM-DD") &&
-                        leave.endDate >= selectedDate.format("YYYY-MM-DD")
-                    ) ? (
+                    (leave) =>
+                      leave.startDate <= selectedDate.format("YYYY-MM-DD") &&
+                      leave.endDate >= selectedDate.format("YYYY-MM-DD")
+                  ) ? (
                     <div className="flex flex-col gap-2">
                       <ul>
                         <li>Leave Day</li>
