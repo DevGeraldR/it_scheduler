@@ -38,7 +38,7 @@ function EmployeeInformation() {
           <div className="flex pb-5 gap-5 items-center lg:divide-x sm:w-1/2 justify-center flex-col mx-auto">
             <h1 className="text-2xl">Employee Details</h1>
             <div className="flex gap-10 items-center lg:flex-row flex-col">
-              <div className="sm:w-96 sm:h-96 max-w-[270px]">
+              <div className="sm:w-96 sm:h-96 max-w-[300px]">
                 <div className="flex justify-between items-center">
                   <h1 className="select-none font-semibold">
                     {months[today.month()]}, {today.year()}
@@ -90,20 +90,26 @@ function EmployeeInformation() {
                           {/*Green color dates available manage here */}
                           <h1
                             className={cn(
-                              employee.schedule.includes(days[date.day()])
+                              employee.leave?.some(
+                                (leave) =>
+                                  leave.startDate <=
+                                    date.format("YYYY-MM-DD") &&
+                                  leave.endDate >= date.format("YYYY-MM-DD")
+                              )
+                                ? "text-red-500 font-bold"
+                                : employee.absent?.some(
+                                    (absent) =>
+                                      absent.startDate <=
+                                        date.format("YYYY-MM-DD") &&
+                                      absent.endDate >=
+                                        date.format("YYYY-MM-DD")
+                                  )
+                                ? "text-yellow-500 font-bold"
+                                : employee.schedule.includes(days[date.day()])
                                 ? "text-green-500 font-bold"
                                 : "text-gray-400",
 
                               today ? "bg-blue-600 text-white" : "",
-
-                              employee.leave?.some(
-                                (leave) =>
-                                  leave.startDate <=
-                                  date.format("YYYY-MM-DD") &&
-                                  leave.endDate >= date.format("YYYY-MM-DD")
-                              )
-                                ? "text-red-500 font-bold"
-                                : "text-gray-400",
 
                               selectedDate.toDate().toDateString() ===
                                 date.toDate().toDateString()
@@ -138,34 +144,56 @@ function EmployeeInformation() {
                   <h1 className="">
                     Status of {selectedDate.toDate().toDateString()}
                   </h1>
-                  {employee.schedule.includes(days[selectedDate.day()]) ? (
-                    <span>Work Day</span>
-                  ) : employee.leave?.some(
+                  {employee.leave?.some(
                     (leave) =>
                       leave.startDate <= selectedDate.format("YYYY-MM-DD") &&
                       leave.endDate >= selectedDate.format("YYYY-MM-DD")
                   ) ? (
                     <div className="flex flex-col gap-2">
                       <ul>
-                        <li>Leave Day</li>
+                        <li>Leave</li>
                       </ul>
                     </div>
+                  ) : employee.absent?.some(
+                      (absent) =>
+                        absent.startDate <= selectedDate.format("YYYY-MM-DD") &&
+                        absent.endDate >= selectedDate.format("YYYY-MM-DD")
+                    ) ? (
+                    <div className="flex flex-col gap-2">
+                      <ul>
+                        <li>Absent</li>
+                      </ul>
+                    </div>
+                  ) : employee.schedule.includes(days[selectedDate.day()]) ? (
+                    <span>Work</span>
                   ) : (
-                    <span>Rest Day</span>
+                    <span>Rest</span>
                   )}
 
-                  <div className="flex flex-row gap-2 my-3">
+                  <div className="flex flex-row gap-1 my-3 w-full">
                     <button
                       onClick={() => navigate("/homepage")}
-                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
                       Back
                     </button>
                     <button
                       onClick={() => navigate("/homepage/addLeave")}
-                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
-                      Add Leave
+                      Leave
+                    </button>
+                    <button
+                      onClick={() => navigate("/homepage/addAbsent")}
+                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    >
+                      Absent
+                    </button>
+                    <button
+                      onClick={() => handleClickRemove(employee.eid)}
+                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    >
+                      Delete
                     </button>
                   </div>
                 </div>

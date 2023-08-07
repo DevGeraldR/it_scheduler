@@ -10,6 +10,7 @@ import EmployeeInformation from "./components/employee_information/EmployeeInfor
 import EditEmployee from "./components/home/EditEmployee";
 import { AuthenticationRoute } from "./components/route/AuthenticationRoute";
 import AddLeave from "./components/employee_information/AddLeave";
+import AddAbsent from "./components/employee_information/AddAbsent";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 element={<EditEmployee />}
               />
               <Route path="/homepage/addLeave" element={<AddLeave />} />
+              <Route path="/homepage/addAbsent" element={<AddAbsent />} />
             </Route>
           </Route>
         </Routes>

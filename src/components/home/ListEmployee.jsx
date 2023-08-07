@@ -8,7 +8,9 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
   const navigate = useNavigate();
 
   const handleClickRemove = async (eid) => {
-    const confirmRemove = window.confirm("Are you sure you want to remove this employee?");
+    const confirmRemove = window.confirm(
+      "Are you sure you want to remove this employee?"
+    );
     if (confirmRemove) {
       const employeeRef = doc(db, "Employees", eid);
 
@@ -22,7 +24,6 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
     }
   };
 
-
   const handleClickEdit = () => {
     // Set the selected employee to the global state for editing
     setEmployee(employee);
@@ -35,8 +36,17 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
       <td className="text-center px-2 py-2">{index + 1}</td>
       <td className=" px-2 py-2">{employee.fullName}</td>
       <td className=" px-2 py-2">{employee.eid}</td>
-      <td className=" px-2 py-2">{employee.leaveCount}</td>
-      <td className=" px-2 py-2">{employee.schedule}</td>
+      <td className=" px-2 py-2">
+        {employee.leave ? employee.leave.length : 0}
+      </td>
+      <td className=" px-2 py-2">
+        {employee.absent ? employee.absent.length : 0}
+      </td>
+      <td className=" px-2 py-2">
+        {employee.schedule.map((d) => {
+          return <span> {d}</span>;
+        })}
+      </td>
       <td className=" px-2 py-2">{employee.shift}</td>
       <td className="text-center  px-2 py-2">
         <button

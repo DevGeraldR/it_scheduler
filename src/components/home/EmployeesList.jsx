@@ -19,6 +19,9 @@ function EmployeesList({ employees }) {
             Leave
           </th>
           <th className="text-left px-2 py-2 bg-black text-white sticky top-0">
+            Absent
+          </th>
+          <th className="text-left px-2 py-2 bg-black text-white sticky top-0">
             Schedule
           </th>
           <th className="text-left px-2 py-2 bg-black text-white sticky top-0">

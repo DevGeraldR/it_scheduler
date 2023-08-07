@@ -5,28 +5,28 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useGlobal } from "../context/Context";
 import { useNavigate } from "react-router-dom";
 
-function AddLeave() {
+function AddAbsent() {
   const { employee } = useGlobal();
   const navigate = useNavigate();
 
-  const [leaveType, setLeaveType] = useState({ leaveType: "" });
+  const [reason, setReason] = useState("");
 
   const [date, setDate] = useState({
     startDate: new Date(""),
     endDate: new Date(""),
   });
 
-  const handleChangeLeave = (newValue) => {
+  const handleChangeAbsent = (newValue) => {
     setDate(newValue);
   };
 
   const handleClickSubmit = async () => {
     const employeeRef = doc(db, "Employees", employee.eid);
     await updateDoc(employeeRef, {
-      leave: arrayUnion({ ...date, leaveType: leaveType }),
+      absent: arrayUnion({ ...date, reason: reason }),
     });
 
-    alert("Leave added");
+    alert("Absent added");
     navigate("/homepage"); // Change to /homepage/employeeInformation
   };
 
@@ -42,47 +42,30 @@ function AddLeave() {
         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
             <div className="text-gray-600">
-              <p className="font-medium text-lg">Add Leave</p>
+              <p className="font-medium text-lg">Add Absent</p>
               <p>Please input all the details needed.</p>
             </div>
             <div className="lg:col-span-2">
               <div className="grid gap-4 gap-y-4 text-sm grid-cols-1 md:grid-cols-5">
                 <div className="md:col-span-5">
-                  <label>Leave Date</label>
+                  <label>Absent Date</label>
                   <Datepicker
                     className="bg-black"
                     value={date}
-                    onChange={handleChangeLeave}
+                    onChange={handleChangeAbsent}
                   />
                 </div>
                 <div className="md:col-span-5 gap-3 flex flex-col">
-                  <label>Leave Type</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="radio"
-                      id="ul"
-                      name="leaveType"
-                      value="ul"
-                      required
-                      onChange={(e) => {
-                        setLeaveType(e.target.value);
-                      }}
-                      checked={leaveType === "ul"}
-                    />
-                    <label htmlFor="ul">UL</label>
-
-                    <input
-                      type="radio"
-                      id="pl"
-                      name="leaveType"
-                      value="pl"
-                      onChange={(e) => {
-                        setLeaveType(e.target.value);
-                      }}
-                      checked={leaveType === "pl"}
-                    />
-                    <label htmlFor="pl">PL</label>
-                  </div>
+                  <label>Reason</label>
+                  <input
+                    type="text"
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    placeholder="Reason"
+                    value={reason}
+                    onChange={(e) => {
+                      setReason(e.target.value);
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -101,4 +84,4 @@ function AddLeave() {
   );
 }
 
-export default AddLeave;
+export default AddAbsent;
