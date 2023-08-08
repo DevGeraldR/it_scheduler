@@ -7,10 +7,11 @@ import Layout from "./components/home/Layout";
 import Homepage from "./components/home/Homepage";
 import AddEmployee from "./components/add_employee/AddEmployee";
 import EmployeeInformation from "./components/employee_information/EmployeeInformation";
-import EditEmployee from "./components/home/EditEmployee";
+import EditEmployee from "./components/edit_employee/EditEmployee";
 import { AuthenticationRoute } from "./components/route/AuthenticationRoute";
-import AddLeave from "./components/employee_information/AddLeave";
 import AddAbsent from "./components/employee_information/AddAbsent";
+import AddLeave from "./components/leave/AddLeave";
+import Leave from "./components/leave/Leave";
 
 function App() {
   return (
@@ -32,8 +33,18 @@ function App() {
                 path="/homepage/EditEmployee/:employeeId"
                 element={<EditEmployee />}
               />
-              <Route path="/homepage/addLeave" element={<AddLeave />} />
-              <Route path="/homepage/addAbsent" element={<AddAbsent />} />
+              <Route
+                path="/homepage/employeeInformation/leave"
+                element={<Leave />}
+              />
+              <Route
+                path="/homepage/employeeInformation/leave/addLeave"
+                element={<AddLeave />}
+              />
+              <Route
+                path="/homepage/employeeInformation/addAbsent"
+                element={<AddAbsent />}
+              />
             </Route>
           </Route>
         </Routes>

@@ -7,10 +7,10 @@ function AddEmployee() {
   const [fullName, setFullName] = useState();
   const [eid, setEID] = useState();
   const [schedule, setSchedule] = useState([]);
-  const [shift, setShift] = useState('Morning');
+  const [shift, setShift] = useState("Morning");
   // State to keep track of the selected time
-  const [startTime, setStartTime] = useState('00:00');
-  const [endTime, setEndTime] = useState('12:00');
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("12:00");
 
   // Function to convert time to 12-hour format
   const formatTimeTo12Hour = (time) => {
@@ -22,7 +22,7 @@ function AddEmployee() {
       hour12: true,
     });
   };
-  // Event handler for when the user changes the time 
+  // Event handler for when the user changes the time
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
   };
@@ -59,12 +59,14 @@ function AddEmployee() {
       shift: shift,
       startTime: formatTimeTo12Hour(startTime),
       endTime: formatTimeTo12Hour(endTime),
+      leave: [],
+      absent: [],
     });
 
     alert("Employee Added");
     setFullName("");
     setEID("");
-    setShift('Morning');
+    setShift("Morning");
   };
 
   return (
@@ -111,30 +113,28 @@ function AddEmployee() {
                   />
                 </div>
                 <div className="md:col-span-5">
-                  <label>Select Shift</label>
-                  {' '}
+                  <label>Select Shift</label>{" "}
                   <select
-                    id="shift" value={shift}
+                    id="shift"
+                    value={shift}
                     type="combobox"
                     className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    onChange={handleShiftChange}>
+                    onChange={handleShiftChange}
+                  >
                     <option value="Morning">Morning</option>
                     <option value="Night">Night</option>
                   </select>
                 </div>
                 <div className="md:col-span-5">
-                  <label >Start Time:</label>
-                  {' '}
+                  <label>Start Time:</label>{" "}
                   <input
                     type="time"
                     id="startTime"
                     className="h-10 border mt-1 rounded px-4 w-500  bg-gray-50"
                     value={startTime}
                     onChange={handleStartTimeChange}
-                  />
-                  {' '}
-                  <label >End Time:</label>
-                  {' '}
+                  />{" "}
+                  <label>End Time:</label>{" "}
                   <input
                     type="time"
                     id="endTime"
@@ -283,7 +283,6 @@ function AddEmployee() {
       </div>
     </form>
   );
-
 }
 
 export default AddEmployee;

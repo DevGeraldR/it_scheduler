@@ -9,8 +9,6 @@ function AddAbsent() {
   const { employee } = useGlobal();
   const navigate = useNavigate();
 
-  const [reason, setReason] = useState("");
-
   const [date, setDate] = useState({
     startDate: new Date(""),
     endDate: new Date(""),
@@ -23,7 +21,7 @@ function AddAbsent() {
   const handleClickSubmit = async () => {
     const employeeRef = doc(db, "Employees", employee.eid);
     await updateDoc(employeeRef, {
-      absent: arrayUnion({ ...date, reason: reason }),
+      absent: arrayUnion(date),
     });
 
     alert("Absent added");
@@ -53,18 +51,6 @@ function AddAbsent() {
                     className="bg-black"
                     value={date}
                     onChange={handleChangeAbsent}
-                  />
-                </div>
-                <div className="md:col-span-5 gap-3 flex flex-col">
-                  <label>Reason</label>
-                  <input
-                    type="text"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                    placeholder="Reason"
-                    value={reason}
-                    onChange={(e) => {
-                      setReason(e.target.value);
-                    }}
                   />
                 </div>
               </div>
