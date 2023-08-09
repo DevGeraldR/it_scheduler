@@ -1,16 +1,20 @@
 import React from "react";
-import { useState } from "react";
+import { useState, Fragment} from "react";
 import { db } from "../firebase/Firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { Dialog, Transition } from "@headlessui/react";
+
 
 function AddEmployee() {
   const [fullName, setFullName] = useState();
+  const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
   const [eid, setEID] = useState();
   const [schedule, setSchedule] = useState([]);
   const [shift, setShift] = useState("Morning");
   // State to keep track of the selected time
-  const [startTime, setStartTime] = useState("00:00");
-  const [endTime, setEndTime] = useState("12:00");
+  const [startTime, setStartTime] = useState('00:00');
+  const [endTime, setEndTime] = useState('12:00');
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function to convert time to 12-hour format
   const formatTimeTo12Hour = (time) => {
@@ -50,8 +54,9 @@ function AddEmployee() {
   };
 
   const handleClick = async () => {
+    setIsLoading(true);
     const employeeRef = doc(db, "Employees", eid);
-
+    
     await setDoc(employeeRef, {
       fullName: fullName,
       eid: eid,
@@ -62,11 +67,8 @@ function AddEmployee() {
       leave: [],
       absent: [],
     });
-
-    alert("Employee Added");
-    setFullName("");
-    setEID("");
-    setShift("Morning");
+    setIsLoading(false);
+    setIsSuccessfulOpen(true);
   };
 
   return (
@@ -77,6 +79,7 @@ function AddEmployee() {
         handleClick();
       }}
     >
+      
       <div className="container max-w-screen-lg max-h-[900px] overflow-scroll md:overflow-hidden">
         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
@@ -273,15 +276,120 @@ function AddEmployee() {
           </div>
         </div>
       </div>
-      <div className="md:col-span-5 text-right">
-        <button
-          type="submit"
-          className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+      <div className="flex p-2 w-full justify-center">
+                {isLoading ? (
+                  <button
+                    disabled
+                    className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-3 -ml-1 text-blue-900 animate-spin"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Loading...
+                  </button>
+                ) : (
+                  <button
+                  type="submit"
+                  className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                >
+                  Add
+                  </button>
+                )}
+              </div>
+  
+        <Transition appear show={isSuccessfulOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => {
+            setFullName("");
+            setEID("");
+            setShift('Morning');
+            setSchedule([]);
+            setStartTime('00:00');
+            setEndTime('12:00');
+            setIsSuccessfulOpen(false);
+          }}
         >
-          Add
-        </button>
-      </div>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Success!
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      Employee added.
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                      onClick={() => {
+                        setFullName("");
+                        setEID("");
+                        setShift('Morning');
+                        setSchedule([]);
+                        setStartTime('00:00');
+                        setEndTime('12:00');
+                        setIsSuccessfulOpen(false);
+                      }}
+                    >
+                      Okay
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+              
     </form>
+    
   );
 }
 

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
 import { db } from "../firebase/Firebase";
 import { doc, updateDoc } from "firebase/firestore";
+
+import { Dialog, Transition } from "@headlessui/react";
 
 function EditEmployee() {
   const { employeeId } = useParams();
@@ -17,6 +19,8 @@ function EditEmployee() {
       hour12: true,
     });
   };
+  const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [fullName, setFullName] = useState(employee.fullName);
   const [schedule, setSchedule] = useState(employee.schedule);
   const [shift, setShift] = useState(employee.shift);
@@ -42,11 +46,13 @@ function EditEmployee() {
     } else {
       setSchedule(schedule.filter((day) => day !== value));
     }
+
   };
 
   // Function to convert time to 12-hour format
 
   const handleEdit = async () => {
+    setIsLoading(true);
     const employeeRef = doc(db, "Employees", employeeId);
 
     // Prepare the data to be updated
@@ -77,7 +83,8 @@ function EditEmployee() {
       ...updatedData,
     });
 
-    navigate("/homepage");
+    setIsLoading(false);
+    setIsSuccessfulOpen(true);
   };
 
   return (
@@ -278,18 +285,107 @@ function EditEmployee() {
           </div>
         </div>
         <div className="flex flex-row gap-2">
+          
           <button
             onClick={() => navigate("/homepage")}
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             Back
           </button>
-          <button
-            type="submit"
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+          <div className="flex flex-row gap-2">
+                {isLoading ? (
+                  <button
+                    disabled
+                    className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-3 -ml-1 text-blue-900 animate-spin"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Loading...
+                  </button>
+                ) : (
+                  <button
+                  type="submit"
+                  className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                >
+                  Add
+                  </button>
+                )}
+              </div>
+          <Transition appear show={isSuccessfulOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => {
+            setIsSuccessfulOpen(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            Save Changes
-          </button>
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Success!
+                  </Dialog.Title>    
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                      onClick={() => {
+                        navigate("/homepage");
+                        setIsSuccessfulOpen(false);
+                      }}
+                    >
+                      Okay
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      
         </div>
       </form>
     </div>
