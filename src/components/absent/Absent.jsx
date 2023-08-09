@@ -1,9 +1,9 @@
 import React from "react";
-import LeavesList from "./LeavesList";
-import { useGlobal } from "../context/Context";
 import { useNavigate } from "react-router-dom";
+import { useGlobal } from "../context/Context";
+import AbsentsList from "./AbsentsList";
 
-function Leave() {
+function Absent() {
   const { employee } = useGlobal();
   const navigate = useNavigate();
   return (
@@ -11,12 +11,12 @@ function Leave() {
       <div className="my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700">
         <div className="flex flex-col md:flex-row gap-2 items-center">
           <h1 className="font-bold text-xl italic block mb-0 leading-none pb-5">
-            Leave
+            Absent
           </h1>
         </div>
 
         <div className="max-h-[500px] overflow-scroll">
-          <LeavesList leaves={employee.leave} />
+          <AbsentsList absents={employee.absent} />
         </div>
         <div className="w-screen flex justify-center p-10 gap-5">
           <button
@@ -27,11 +27,11 @@ function Leave() {
           </button>
           <button
             onClick={() =>
-              navigate("/homepage/employeeInformation/leave/addLeave")
+              navigate("/homepage/employeeInformation/absent/addAbsent")
             }
             className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
-            Add Leave
+            Add Absent
           </button>
         </div>
       </div>
@@ -39,4 +39,4 @@ function Leave() {
   );
 }
 
-export default Leave;
+export default Absent;

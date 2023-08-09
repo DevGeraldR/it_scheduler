@@ -1,7 +1,7 @@
 import React from "react";
-import ListLeave from "./ListLeave";
+import ListAbsent from "./ListAbsent";
 
-function LeaveList({ leaves }) {
+function AbsentsList({ absents }) {
   return (
     <table className="table w-full max-h-[500px]">
       <thead>
@@ -15,9 +15,6 @@ function LeaveList({ leaves }) {
           <th className="text-left px-2 py-2 bg-black text-white sticky top-0">
             End Date
           </th>
-          <th className="text-left px-2 py-2 bg-black text-white sticky top-0">
-            Type
-          </th>
 
           <th className="text-center px-2 py-2 bg-black text-white sticky top-0">
             Actions
@@ -25,21 +22,21 @@ function LeaveList({ leaves }) {
         </tr>
       </thead>
       <tbody>
-        {leaves.length <= 0 ? (
+        {absents.length <= 0 ? (
           <tr>
             <td className="text-center p-5" colSpan="8">
-              No leave
+              No absent
             </td>
           </tr>
         ) : (
           ""
         )}
-        {leaves.map((leave, index) => {
-          return <ListLeave key={index} leave={leave} index={index} />;
+        {absents.map((absent, index) => {
+          return <ListAbsent key={index} absent={absent} index={index} />;
         })}
       </tbody>
     </table>
   );
 }
 
-export default LeaveList;
+export default AbsentsList;

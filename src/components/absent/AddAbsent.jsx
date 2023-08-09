@@ -6,12 +6,10 @@ import { useGlobal } from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 
-
 function AddAbsent() {
   const { employee } = useGlobal();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [reason, setReason] = useState("");
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
 
   const [date, setDate] = useState({
@@ -32,7 +30,6 @@ function AddAbsent() {
 
     setIsLoading(false);
     setIsSuccessfulOpen(true);
-
   };
 
   return (
@@ -104,9 +101,7 @@ function AddAbsent() {
                     Success!
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Absent added.
-                    </p>
+                    <p className="text-sm text-gray-500">Absent added.</p>
                   </div>
 
                   <div className="mt-4">
@@ -127,7 +122,13 @@ function AddAbsent() {
           </div>
         </Dialog>
       </Transition>
-      <div className="flex p-2 w-full justify-center">
+      <div className="flex p-2 w-full justify-center gap-2">
+        <button
+          onClick={() => navigate("/homepage/employeeInformation/leave")}
+          className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+        >
+          Cancel
+        </button>
         {isLoading ? (
           <button
             disabled

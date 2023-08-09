@@ -9,9 +9,10 @@ import AddEmployee from "./components/add_employee/AddEmployee";
 import EmployeeInformation from "./components/employee_information/EmployeeInformation";
 import EditEmployee from "./components/edit_employee/EditEmployee";
 import { AuthenticationRoute } from "./components/route/AuthenticationRoute";
-import AddAbsent from "./components/employee_information/AddAbsent";
 import AddLeave from "./components/leave/AddLeave";
 import Leave from "./components/leave/Leave";
+import AddAbsent from "./components/absent/AddAbsent";
+import Absent from "./components/absent/Absent";
 
 function App() {
   return (
@@ -42,7 +43,11 @@ function App() {
                 element={<AddLeave />}
               />
               <Route
-                path="/homepage/employeeInformation/addAbsent"
+                path="/homepage/employeeInformation/absent"
+                element={<Absent />}
+              />
+              <Route
+                path="/homepage/employeeInformation/absent/addAbsent"
                 element={<AddAbsent />}
               />
             </Route>

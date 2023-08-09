@@ -103,19 +103,19 @@ function EmployeeInformation() {
                                 ?.leaveType === "pl"
                                 ? "bg-orange-100 text-orange-900 font-bold"
                                 : employee.leave[getIndex(employee, date)]
-                                  ?.leaveType === "ul"
-                                  ? "bg-red-100 text-red-900 font-bold"
-                                  : employee.absent?.some(
+                                    ?.leaveType === "ul"
+                                ? "bg-red-100 text-red-900 font-bold"
+                                : employee.absent?.some(
                                     (absent) =>
                                       absent.startDate <=
-                                      date.format("YYYY-MM-DD") &&
+                                        date.format("YYYY-MM-DD") &&
                                       absent.endDate >=
-                                      date.format("YYYY-MM-DD")
+                                        date.format("YYYY-MM-DD")
                                   )
-                                    ? "bg-violet-100 text-violet-900 font-bold"
-                                    : employee.schedule.includes(days[date.day()])
-                                      ? "bg-green-100 text-green-900 font-bold"
-                                      : "text-gray-400",
+                                ? "bg-violet-100 text-violet-900 font-bold"
+                                : employee.schedule.includes(days[date.day()])
+                                ? "bg-green-100 text-green-900 font-bold"
+                                : "text-gray-400",
 
                               today ? "border border-black" : "",
 
@@ -158,7 +158,9 @@ function EmployeeInformation() {
                       Leave
                     </button>
                     <button
-                      onClick={() => navigate("/homepage/addAbsent")}
+                      onClick={() =>
+                        navigate("/homepage/employeeInformation/absent")
+                      }
                       className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
                       Absent
