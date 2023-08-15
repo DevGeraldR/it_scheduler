@@ -3,26 +3,30 @@ import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/Firebase";
-
+import { PiFileTextFill } from "react-icons/pi";
+import { MdDelete } from "react-icons/md";
+import { FaUserEdit } from "react-icons/fa";
 function ListEmployee({ employee, index, onRemoveEmployee }) {
   const { setEmployee } = useGlobal();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-
+  const [hoverTextdetails, setHoverTextdetails] = useState("");
+  const [hoverTextremove, setHoverTextremove] = useState("");
+  const [hoverTextedit, setHoverTextedit] = useState("");
   const handleClickRemove = (eid) => {
     setShowConfirmDialog(true);
   };
 
   const handleConfirmRemove = async (eid) => {
-    setIsLoading(true);
-    const employeeRef = doc(db, "employees", eid);
+    setIsLoading(true)
+    const employeeRef = doc(db, "Employees", eid);
 
     try {
       await deleteDoc(employeeRef);
       // Call the parent's handler to remove the employee from the list
 
-      setIsLoading(false);
+      setIsLoading(false)
       setShowConfirmDialog(false);
       onRemoveEmployee(eid);
       // Close the confirmation dialog
@@ -30,6 +34,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
       console.error("Error removing employee:", error);
     }
   };
+
 
   const handleClickEdit = () => {
     // Set the selected employee to the global state for editing
@@ -40,7 +45,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
   };
 
   return (
-    <tr key={index} className="bg-white border-b border-b-black">
+    <tr key={index} className="bg-white border border-slate-400">
       <td className="text-center px-2 py-2">{index + 1}</td>
       <td className="px-2 py-2">{employee.fullName}</td>
       <td className="px-2 py-2">{employee.eid}</td>
@@ -56,36 +61,61 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
         })}
       </td>
       <td className="px-2 py-2">{employee.shift}</td>
-      <td className="text-center px-2 py-2">
+      <div className="flex items-center ">
         <button
-          className="text-black text-blue-600 hover:text-blue-900"
+          className="font-bold ml-auto  text-blue hover:text-blue-600 transition duration-300 ease-in-out transform  hover:scale-110 flex flex-col items-center"
+          onMouseEnter={() => setHoverTextdetails("Full Details")}
+          onMouseLeave={() => setHoverTextdetails("")}
           onClick={() => {
             setEmployee(employee);
             navigate("/homepage/employeeInformation");
           }}
+          style={{
+            width: "20px",
+            alignSelf: "center", // Center the button content vertically
+            border: "1px solid transparent", // Add transparent border for stabilization
+          }}
+
         >
-          Full Details
+          <PiFileTextFill size={25} />
+          {hoverTextdetails && (
+            <div className="mt-0 text-blue-900 text-sm">{hoverTextdetails}</div>
+          )}
         </button>
         <button
-          className="text-red-600 pl-3 hover:text-red-900"
-          onClick={() => handleClickRemove(employee.eid)}
-        >
-          Remove
-        </button>
-        <button
-          className="text-green-600 pl-3 hover:text-green-900"
+          className="font-bold ml-auto  text-green hover:text-green-600 transition duration-300 ease-in-out transform  hover:scale-110 flex flex-col items-center"
+          onMouseEnter={() => setHoverTextedit("Edit")}
+          onMouseLeave={() => setHoverTextedit("")}
           onClick={handleClickEdit}
         >
-          Edit
+          <FaUserEdit size={25} />
+          {hoverTextedit && (
+            <div className="mt-0 text-green-900 text-sm">{hoverTextedit}</div>
+          )}
         </button>
-      </td>
+        <button
+          className="font-bold ml-auto text-red hover:text-red-600 transition duration-300 ease-in-out transform  hover:scale-110  flex flex-col items-center"
+          onMouseEnter={() => setHoverTextremove("Remove")}
+          onMouseLeave={() => setHoverTextremove("")}
+          onClick={() => handleClickRemove(employee.eid)}
+          style={{
+            width: "20px", // Adjust the width to your preference
+            alignSelf: "center", // Center the button content vertically
+            marginRight: "50px", // Add some right margin to prevent touching the edge
+          }}
+        >
+
+          <MdDelete size={25} />
+          {hoverTextremove && (
+            <div className="mt-0 text-red-900 text-sm">{hoverTextremove}</div>
+          )}
+        </button>
+      </div>
       {showConfirmDialog && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow">
             <p>Are you sure you want to remove this employee?</p>
-            <div className="flex justify-end mt-4 space-x-1">
-              {" "}
-              {/* Add space-x-4 for spacing */}
+            <div className="flex justify-end mt-4 space-x-1 "> {/* Add space-x-4 for spacing */}
               <button
                 className="bg-blue-100 text-blue-900 hover:bg-blue-200 pl-3 pr-2 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 onClick={() => setShowConfirmDialog(false)}
@@ -130,7 +160,9 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
             </div>
           </div>
         </div>
+
       )}
+
     </tr>
   );
 }

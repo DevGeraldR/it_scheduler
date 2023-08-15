@@ -29,7 +29,7 @@ function Login() {
     >
       <form
 
-        className="p-10 w-[650px] h-[500px] bg-white rounded-xl drop-shadow-lg space-y-5 border border-slate-400  flex flex-col items-center"
+        className="p-10  bg-white rounded-xl drop-shadow-lg space-y-5 border border-slate-400  flex flex-col items-center"
 
         onSubmit={(e) => {
           e.preventDefault();
@@ -37,7 +37,7 @@ function Login() {
         }}
 
       >
-        <div className="Taskus_logoname w-[600px] h-[90px] bg-yellow-300 flex items-center rounded-xl shadow-lg border border-slate-400">
+        <div className="Taskus_logoname w-[600px] h-[90px] bg-slate-900 flex items-center rounded-xl shadow-lg border border-slate-400">
           <img src={Taskus_logoname} width="300" height="80px" alt="Taskus Logo" className="ml-4" />
         </div>
         <div className="flex flex-col space-y-2">
@@ -65,7 +65,7 @@ function Login() {
         <button
           type="submit"
 
-          className=" bg-yellow-300 w-[120px] rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="hover:text-white  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110 border border-slate-400 bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
           Login
         </button>

@@ -4,6 +4,7 @@ import { db } from "../firebase/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { Dialog, Transition } from "@headlessui/react";
 
+
 function AddEmployee() {
   const [fullName, setFullName] = useState();
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
@@ -11,8 +12,8 @@ function AddEmployee() {
   const [schedule, setSchedule] = useState([]);
   const [shift, setShift] = useState("Morning");
   // State to keep track of the selected time
-  const [startTime, setStartTime] = useState("00:00");
-  const [endTime, setEndTime] = useState("12:00");
+  const [startTime, setStartTime] = useState('00:00');
+  const [endTime, setEndTime] = useState('12:00');
   const [isLoading, setIsLoading] = useState(false);
 
   // Function to convert time to 12-hour format
@@ -60,7 +61,7 @@ function AddEmployee() {
   };
   const handleClick = async () => {
     setIsLoading(true);
-    const employeeRef = doc(db, "employees", eid);
+    const employeeRef = doc(db, "Employees", eid);
 
     await setDoc(employeeRef, {
       fullName: fullName,
@@ -84,8 +85,9 @@ function AddEmployee() {
         handleClick();
       }}
     >
+
       <div className="container max-w-screen-lg max-h-[900px] overflow-scroll md:overflow-hidden">
-        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
+        <div className="bg-white border border-slate-400 rounded-xl  shadow-lg p-4 px-4 md:p-8 mb-6 ">
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
             <div className="text-gray-600">
               <p className="font-medium text-lg">Add Employee</p>
@@ -280,14 +282,14 @@ function AddEmployee() {
           </div>
         </div>
       </div>
-      <div className="flex p-2 w-full justify-center">
+      <div className="flex p-2  justify-center">
         {isLoading ? (
           <button
             disabled
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className="bg-yellow-400 transition duration-300 ease-in-out transform hover:scale-110 text-black hover:bg-yellow-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             <svg
-              className="w-5 h-5 mr-3 -ml-1 text-blue-900 animate-spin"
+              className="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -311,7 +313,7 @@ function AddEmployee() {
         ) : (
           <button
             type="submit"
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className="hover:text-white border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Add
           </button>
@@ -325,10 +327,10 @@ function AddEmployee() {
           onClose={() => {
             setFullName("");
             setEID("");
-            setShift("Morning");
+            setShift('Morning');
             setSchedule([]);
-            setStartTime("00:00");
-            setEndTime("12:00");
+            setStartTime('00:00');
+            setEndTime('12:00');
             setIsSuccessfulOpen(false);
           }}
         >
@@ -355,7 +357,7 @@ function AddEmployee() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform border border-slate-400 overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -363,20 +365,22 @@ function AddEmployee() {
                     Success!
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">Employee added.</p>
+                    <p className="text-sm text-gray-500">
+                      Employee added.
+                    </p>
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                      className="hover:text-white  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110 border border-transparent bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setFullName("");
                         setEID("");
-                        setShift("Morning");
+                        setShift('Morning');
                         setSchedule([]);
-                        setStartTime("00:00");
-                        setEndTime("12:00");
+                        setStartTime('00:00');
+                        setEndTime('12:00');
                         setIsSuccessfulOpen(false);
                       }}
                     >
@@ -389,7 +393,9 @@ function AddEmployee() {
           </div>
         </Dialog>
       </Transition>
+
     </form>
+
   );
 }
 
