@@ -23,7 +23,7 @@ function EmployeeInformation() {
   const handleClickRemove = async (eid) => {
     const confirm = window.confirm("Are you sure you want to remove employee?");
     if (confirm) {
-      const employeeRef = doc(db, "Employees", eid);
+      const employeeRef = doc(db, "employees", eid);
 
       await deleteDoc(employeeRef);
       navigate("/homepage");

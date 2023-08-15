@@ -16,7 +16,6 @@ export function useGlobal() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-  const [employee, setEmployee] = useState([]);
 
   const logIn = async (email, password) => {
     try {
@@ -41,6 +40,19 @@ export function AuthProvider({ children }) {
     });
     return unsubscribe;
   }, []);
+
+  // Local Storage: setting & getting data
+  const employeeInitialState = () => {
+    const employeeDetails = JSON.parse(localStorage.getItem("employeeDetails"));
+
+    return employeeDetails ? employeeDetails : [];
+  };
+
+  const [employee, setEmployee] = useState(employeeInitialState);
+
+  useEffect(() => {
+    localStorage.setItem("employeeDetails", JSON.stringify(employee));
+  }, [employee]);
 
   const value = {
     logIn,

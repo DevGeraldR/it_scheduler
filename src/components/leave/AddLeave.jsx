@@ -24,7 +24,7 @@ function AddLeave() {
 
   const handleClickSubmit = async () => {
     setIsLoading(true);
-    const employeeRef = doc(db, "Employees", employee.eid);
+    const employeeRef = doc(db, "employees", employee.eid);
     await updateDoc(employeeRef, {
       leave: arrayUnion({ ...date, leaveType: leaveType }),
     });

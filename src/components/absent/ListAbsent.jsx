@@ -14,7 +14,7 @@ function ListAbsent({ absent, index }) {
       endDate: absent.endDate,
     };
 
-    const employeeRef = doc(db, "Employees", employee.eid);
+    const employeeRef = doc(db, "employees", employee.eid);
 
     await updateDoc(employeeRef, {
       absent: arrayRemove(date),

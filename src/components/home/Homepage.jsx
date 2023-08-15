@@ -12,7 +12,7 @@ function Hompage() {
 
   useEffect(() => {
     //Use to listen to the database and get the new
-    const unsub = onSnapshot(collection(db, "Employees"), (snapshot) => {
+    const unsub = onSnapshot(collection(db, "employees"), (snapshot) => {
       const employee = [];
       snapshot.forEach((doc) => {
         employee.push(doc.data());

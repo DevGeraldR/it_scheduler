@@ -15,7 +15,7 @@ function ListLeave({ leave, index }) {
       leaveType: leave.leaveType,
     };
 
-    const employeeRef = doc(db, "Employees", employee.eid);
+    const employeeRef = doc(db, "employees", employee.eid);
 
     await updateDoc(employeeRef, {
       leave: arrayRemove(date),

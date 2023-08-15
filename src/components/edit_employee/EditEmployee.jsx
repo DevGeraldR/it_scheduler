@@ -46,21 +46,23 @@ function EditEmployee() {
       setSchedule((prevSchedule) => {
         // Sort the days in the desired order (Monday to Sunday)
         const newSchedule = [...prevSchedule, value].sort((a, b) => {
-          const days = ['M', 'T', 'W', 'TH', 'F', 'SAT', 'SU'];
+          const days = ["M", "T", "W", "TH", "F", "SAT", "SU"];
           return days.indexOf(a) - days.indexOf(b);
         });
         return newSchedule;
       });
     } else {
       // Remove the day from the schedule array
-      setSchedule((prevSchedule) => prevSchedule.filter((day) => day !== value));
+      setSchedule((prevSchedule) =>
+        prevSchedule.filter((day) => day !== value)
+      );
     }
   };
   // Function to convert time to 12-hour format
 
   const handleEdit = async () => {
     setIsLoading(true);
-    const employeeRef = doc(db, "Employees", employeeId);
+    const employeeRef = doc(db, "employees", employeeId);
 
     // Prepare the data to be updated
     const updatedData = {
@@ -292,7 +294,6 @@ function EditEmployee() {
           </div>
         </div>
         <div className="flex flex-row gap-2">
-
           <button
             onClick={() => navigate("/homepage")}
             className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
@@ -392,7 +393,6 @@ function EditEmployee() {
               </div>
             </Dialog>
           </Transition>
-
         </div>
       </form>
     </div>

@@ -23,7 +23,7 @@ function AddAbsent() {
 
   const handleClickSubmit = async () => {
     setIsLoading(true);
-    const employeeRef = doc(db, "Employees", employee.eid);
+    const employeeRef = doc(db, "employees", employee.eid);
     await updateDoc(employeeRef, {
       absent: arrayUnion(date),
     });
