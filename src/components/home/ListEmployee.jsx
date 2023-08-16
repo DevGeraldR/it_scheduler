@@ -19,14 +19,14 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
   };
 
   const handleConfirmRemove = async (eid) => {
-    setIsLoading(true)
-    const employeeRef = doc(db, "Employees", eid);
+    setIsLoading(true);
+    const employeeRef = doc(db, "employees", eid);
 
     try {
       await deleteDoc(employeeRef);
       // Call the parent's handler to remove the employee from the list
 
-      setIsLoading(false)
+      setIsLoading(false);
       setShowConfirmDialog(false);
       onRemoveEmployee(eid);
       // Close the confirmation dialog
@@ -34,7 +34,6 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
       console.error("Error removing employee:", error);
     }
   };
-
 
   const handleClickEdit = () => {
     // Set the selected employee to the global state for editing
@@ -75,7 +74,6 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
             alignSelf: "center", // Center the button content vertically
             border: "1px solid transparent", // Add transparent border for stabilization
           }}
-
         >
           <PiFileTextFill size={25} />
           {hoverTextdetails && (
@@ -104,7 +102,6 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
             marginRight: "50px", // Add some right margin to prevent touching the edge
           }}
         >
-
           <MdDelete size={25} />
           {hoverTextremove && (
             <div className="mt-0 text-red-900 text-sm">{hoverTextremove}</div>
@@ -115,7 +112,9 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow">
             <p>Are you sure you want to remove this employee?</p>
-            <div className="flex justify-end mt-4 space-x-1 "> {/* Add space-x-4 for spacing */}
+            <div className="flex justify-end mt-4 space-x-1 ">
+              {" "}
+              {/* Add space-x-4 for spacing */}
               <button
                 className="bg-blue-100 text-blue-900 hover:bg-blue-200 pl-3 pr-2 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                 onClick={() => setShowConfirmDialog(false)}
@@ -160,9 +159,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
             </div>
           </div>
         </div>
-
       )}
-
     </tr>
   );
 }

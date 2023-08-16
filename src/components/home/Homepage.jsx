@@ -7,7 +7,6 @@ import EmplooyeesList from "./EmployeesList";
 import { HiDocumentPlus } from "react-icons/hi2";
 import { MdPersonSearch } from "react-icons/md";
 
-
 function Hompage() {
   const [employees, setEmployees] = useState([]);
   const [searchList, setSearchList] = useState([]);
@@ -17,7 +16,7 @@ function Hompage() {
   const [hoverTextadd, setHoverTextadd] = useState("");
   useEffect(() => {
     //Use to listen to the database and get the new
-    const unsub = onSnapshot(collection(db, "Employees"), (snapshot) => {
+    const unsub = onSnapshot(collection(db, "employees"), (snapshot) => {
       const employee = [];
       snapshot.forEach((doc) => {
         employee.push(doc.data());
@@ -53,7 +52,7 @@ function Hompage() {
       <div className="my-5 w-[1300px] h-[680px] border border-slate-400 bg-white p-5 rounded-xl shadow-lg text-gray-700">
         <div className="flex flex-col md:flex-row gap-2 items-center">
           <h1 className="font-bold text-slate-900 block mb-0 leading-none pb-5">
-            < MdPersonSearch size={50} />
+            <MdPersonSearch size={50} />
           </h1>
           <div className="relative flex flex-wrap items-stretch mb-4">
             <input
@@ -71,9 +70,9 @@ function Hompage() {
             onClick={handleClickAdd}
             onMouseEnter={() => setHoverTextadd("Add Employee")}
             onMouseLeave={() => setHoverTextadd("")}
-          // Add your onClick event to navigate to the "Add Employee" page
+            // Add your onClick event to navigate to the "Add Employee" page
           >
-            < HiDocumentPlus size={36} />
+            <HiDocumentPlus size={36} />
             {hoverTextadd && (
               <div className="ml-2 text-yellow-400 text-sm">{hoverTextadd}</div>
             )}

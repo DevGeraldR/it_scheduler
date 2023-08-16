@@ -13,8 +13,8 @@ function AddAbsent() {
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
 
   const [date, setDate] = useState({
-    startDate: new Date(""),
-    endDate: new Date(""),
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
   });
 
   const handleChangeAbsent = (newValue) => {
@@ -55,6 +55,9 @@ function AddAbsent() {
                     className="bg-black"
                     value={date}
                     onChange={handleChangeAbsent}
+                    onKeyDown={(e) => {
+                      e.preventDefault();
+                    }}
                   />
                 </div>
               </div>

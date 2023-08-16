@@ -14,8 +14,8 @@ function AddLeave() {
   const [leaveType, setLeaveType] = useState({ leaveType: "" });
 
   const [date, setDate] = useState({
-    startDate: new Date(""),
-    endDate: new Date(""),
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
   });
 
   const handleChangeLeave = (newValue) => {
@@ -55,8 +55,10 @@ function AddLeave() {
                   <Datepicker
                     className="bg-black"
                     value={date}
-                    required
                     onChange={handleChangeLeave}
+                    onKeyDown={(e) => {
+                      e.preventDefault();
+                    }}
                   />
                 </div>
                 <div className="md:col-span-5 gap-3 flex flex-col">

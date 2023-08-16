@@ -4,7 +4,6 @@ import { db } from "../firebase/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { Dialog, Transition } from "@headlessui/react";
 
-
 function AddEmployee() {
   const [fullName, setFullName] = useState();
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
@@ -12,8 +11,8 @@ function AddEmployee() {
   const [schedule, setSchedule] = useState([]);
   const [shift, setShift] = useState("Morning");
   // State to keep track of the selected time
-  const [startTime, setStartTime] = useState('00:00');
-  const [endTime, setEndTime] = useState('12:00');
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("12:00");
   const [isLoading, setIsLoading] = useState(false);
 
   // Function to convert time to 12-hour format
@@ -61,7 +60,7 @@ function AddEmployee() {
   };
   const handleClick = async () => {
     setIsLoading(true);
-    const employeeRef = doc(db, "Employees", eid);
+    const employeeRef = doc(db, "employees", eid);
 
     await setDoc(employeeRef, {
       fullName: fullName,
@@ -85,7 +84,6 @@ function AddEmployee() {
         handleClick();
       }}
     >
-
       <div className="container max-w-screen-lg max-h-[900px] overflow-scroll md:overflow-hidden">
         <div className="bg-white border border-slate-400 rounded-xl  shadow-lg p-4 px-4 md:p-8 mb-6 ">
           <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
@@ -327,10 +325,10 @@ function AddEmployee() {
           onClose={() => {
             setFullName("");
             setEID("");
-            setShift('Morning');
+            setShift("Morning");
             setSchedule([]);
-            setStartTime('00:00');
-            setEndTime('12:00');
+            setStartTime("00:00");
+            setEndTime("12:00");
             setIsSuccessfulOpen(false);
           }}
         >
@@ -365,9 +363,7 @@ function AddEmployee() {
                     Success!
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Employee added.
-                    </p>
+                    <p className="text-sm text-gray-500">Employee added.</p>
                   </div>
 
                   <div className="mt-4">
@@ -377,10 +373,10 @@ function AddEmployee() {
                       onClick={() => {
                         setFullName("");
                         setEID("");
-                        setShift('Morning');
+                        setShift("Morning");
                         setSchedule([]);
-                        setStartTime('00:00');
-                        setEndTime('12:00');
+                        setStartTime("00:00");
+                        setEndTime("12:00");
                         setIsSuccessfulOpen(false);
                       }}
                     >
@@ -393,9 +389,7 @@ function AddEmployee() {
           </div>
         </Dialog>
       </Transition>
-
     </form>
-
   );
 }
 
