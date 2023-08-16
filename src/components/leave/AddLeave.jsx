@@ -102,7 +102,7 @@ function AddLeave() {
       </div>
       <div className="md:col-span-5 text-right">
         <Transition appear show={isSuccessfulOpen} as={Fragment}>
-          <Dialog
+        <Dialog
             as="div"
             className="relative z-10"
             onClose={() => {
@@ -111,10 +111,10 @@ function AddLeave() {
           >
             <Transition.Child
               as={Fragment}
-              enter="ease-out duration-300"
+              enter="transition-opacity ease-out duration-300"
               enterFrom="opacity-0"
               enterTo="opacity-100"
-              leave="ease-in duration-200"
+              leave="transition-opacity ease-in duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
@@ -125,14 +125,17 @@ function AddLeave() {
               <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
                   as={Fragment}
-                  enter="ease-out duration-300"
+                  enter="transition-transform ease-out duration-300"
                   enterFrom="opacity-0 scale-95"
                   enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
+                  leave="transition-transform ease-in duration-200"
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel
+                    className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                    static
+                  >
                     <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
@@ -148,7 +151,6 @@ function AddLeave() {
                         type="button"
                         className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         onClick={() => {
-                          // Reformat data
                           setDate({
                             startDate: null,
                             endDate: null,
@@ -198,7 +200,7 @@ function AddLeave() {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 ></path>
               </svg>
-              Loading...
+              Please wait...
             </button>
           ) : (
             <button
