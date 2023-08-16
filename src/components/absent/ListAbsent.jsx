@@ -1,13 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/Firebase";
 
 function ListAbsent({ absent, index }) {
-  const { employee } = useGlobal();
-  const navigate = useNavigate();
-
+  const { employee, setEmployee } = useGlobal();
   const handleClickRemove = async () => {
     const date = {
       startDate: absent.startDate,
@@ -20,8 +17,12 @@ function ListAbsent({ absent, index }) {
       absent: arrayRemove(date),
     });
 
+    // Update the employee context
+    const updatedAbsentList = [...employee.absent];
+    updatedAbsentList.splice(updatedAbsentList.indexOf(date));
+    setEmployee({ ...employee, absent: updatedAbsentList });
+
     alert("absent removed");
-    navigate("/homepage"); // Change to /homepage/employeeInformation
   };
 
   return (

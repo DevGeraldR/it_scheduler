@@ -7,15 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 
 function AddLeave() {
-  const { employee } = useGlobal();
+  const { employee, setEmployee } = useGlobal();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
   const [leaveType, setLeaveType] = useState({ leaveType: "" });
 
   const [date, setDate] = useState({
-    startDate: new Date(),
-    endDate: new Date().setMonth(11),
+    startDate: null,
+    endDate: null,
   });
 
   const handleChangeLeave = (newValue) => {
@@ -28,6 +28,11 @@ function AddLeave() {
     await updateDoc(employeeRef, {
       leave: arrayUnion({ ...date, leaveType: leaveType }),
     });
+
+    // Update the employee context
+    const updatedLeaveList = [...employee.leave];
+    updatedLeaveList.push({ ...date, leaveType: leaveType });
+    setEmployee({ ...employee, leave: updatedLeaveList });
 
     setIsLoading(false);
     setIsSuccessfulOpen(true);
@@ -143,7 +148,12 @@ function AddLeave() {
                         type="button"
                         className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                         onClick={() => {
-                          navigate("/homepage");
+                          // Reformat data
+                          setDate({
+                            startDate: null,
+                            endDate: null,
+                          });
+                          setLeaveType({ leaveType: "" });
                           setIsSuccessfulOpen(false);
                         }}
                       >
@@ -161,7 +171,7 @@ function AddLeave() {
             onClick={() => navigate("/homepage/employeeInformation/leave")}
             className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
-            Cancel
+            Back
           </button>
           {isLoading ? (
             <button
@@ -193,7 +203,14 @@ function AddLeave() {
           ) : (
             <button
               type="submit"
-              className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              disabled={
+                date.startDate === null && date.endDate === null ? true : false
+              }
+              className={`${
+                date.startDate === null && date.endDate === null
+                  ? "bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500"
+                  : "bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500"
+              } inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
             >
               Add
             </button>
