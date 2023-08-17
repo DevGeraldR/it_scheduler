@@ -10,16 +10,12 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
-  const [isErrorOpen, setIsErrorOpen] = useState(false);
-
   //To sign in the user it uses firebase authentication 
   const handleClick = async () => {
     setIsLoading(true)
     await logIn(email, password);
     // To not navigate the user to admin page if password or email is wrong
     setIsLoading(false)
-    setIsSuccessfulOpen(true);
     navigate("/homepage");
   };
   return (
