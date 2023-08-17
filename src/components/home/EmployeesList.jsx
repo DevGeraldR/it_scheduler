@@ -3,17 +3,17 @@ import ListEmployee from "./ListEmployee";
 
 function EmployeesList({ employees }) {
   return (
-    <table className="table w-full max-h-[500px]">
+    <table className="table w-full">
       <thead>
-        <tr className="bg-slate-900 sticky top-0 z-10 border border-slate-400 top-0 rounded-xl">
-          <th className="text-center px-2 py-2 text-white"> # </th>
-          <th className="text-left px-2 py-2 text-white"> Name </th>
-          <th className="text-left px-2 py-2 text-white"> EID </th>
-          <th className="text-left px-1 py-2 text-white"> Leave </th>
-          <th className="text-left px-2 py-2 text-white"> Absent </th>
-          <th className="text-left px-2 py-2 text-white"> Schedule </th>
-          <th className="text-left px-2 py-2 text-white"> Shift </th>
-          <th className="text-center px-2 py-2 text-white"> Actions </th>
+        <tr className="bg-black text-white sticky top-0 z-10">
+          <th className="text-center px-2 py-2"> # </th>
+          <th className="text-center px-2 py-2"> Name </th>
+          <th className="text-center px-2 py-2"> EID </th>
+          <th className="text-center px-2 py-2"> Leave </th>
+          <th className="text-center px-2 py-2"> Absent </th>
+          <th className="text-center px-2 py-2"> Schedule </th>
+          <th className="text-center px-2 py-2"> Shift </th>
+          <th className="text-center px-2 py-2"> Actions </th>
         </tr>
       </thead>
       <tbody>

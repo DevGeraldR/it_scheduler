@@ -373,10 +373,6 @@ function AddEmployee() {
                       onClick={() => {
                         setFullName("");
                         setEID("");
-                        setShift("Morning");
-                        setSchedule([]);
-                        setStartTime("00:00");
-                        setEndTime("12:00");
                         setIsSuccessfulOpen(false);
                       }}
                     >
