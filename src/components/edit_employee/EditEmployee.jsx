@@ -178,114 +178,114 @@ function EditEmployee() {
                           Monday
                         </label>
                       </div>
-                      <li className="w-full border border-gray-200">
-                        <div className="flex items-center pl-3">
-                          <input
-                            id="tuesday-checkbox-list"
-                            type="checkbox"
-                            className="w-4 h-4"
-                            onChange={handleChange}
-                            value="T"
-                            checked={schedule.includes("T")}
-                          />
-                          <label
-                            for="tuesday-checkbox-list"
-                            className="w-full py-3 ml-2 text-sm font-medium"
-                          >
-                            Tuesday
-                          </label>
-                        </div>
-                      </li>
-                      <li className="w-full border border-gray-200">
-                        <div className="flex items-center pl-3">
-                          <input
-                            id="wednesday-checkbox-list"
-                            type="checkbox"
-                            onChange={handleChange}
-                            value="W"
-                            checked={schedule.includes("W")}
-                            className="w-4 h-4"
-                          />
-                          <label
-                            for="wednesday-checkbox-list"
-                            className="w-full py-3 ml-2 text-sm font-medium"
-                          >
-                            Wednesday
-                          </label>
-                        </div>
-                      </li>
-                      <li className="w-full border border-gray-200">
-                        <div className="flex items-center pl-3">
-                          <input
-                            id="thursday-checkbox-list"
-                            type="checkbox"
-                            onChange={handleChange}
-                            value="TH"
-                            checked={schedule.includes("TH")}
-                            className="w-4 h-4"
-                          />
-                          <label
-                            for="thursday-checkbox-list"
-                            className="w-full py-3 ml-2 text-sm font-medium"
-                          >
-                            Thursday
-                          </label>
-                        </div>
-                      </li>
-                      <li className="w-full border border-gray-200">
-                        <div className="flex items-center pl-3">
-                          <input
-                            id="friday-checkbox-list"
-                            type="checkbox"
-                            onChange={handleChange}
-                            value="F"
-                            checked={schedule.includes("F")}
-                            className="w-4 h-4"
-                          />
-                          <label
-                            for="friday-checkbox-list"
-                            className="w-full py-3 ml-2 text-sm font-medium"
-                          >
-                            Friday
-                          </label>
-                        </div>
-                      </li>
-                      <li className="w-full border border-gray-200">
-                        <div className="flex items-center pl-3">
-                          <input
-                            id="saturday-checkbox-list"
-                            type="checkbox"
-                            onChange={handleChange}
-                            value="SAT"
-                            checked={schedule.includes("SAT")}
-                            className="w-4 h-4"
-                          />
-                          <label
-                            for="saturday-checkbox-list"
-                            className="w-full py-3 ml-2 text-sm font-medium"
-                          >
-                            Saturday
-                          </label>
-                        </div>
-                      </li>
-                      <li className="w-full border border-gray-200">
-                        <div className="flex items-center pl-3">
-                          <input
-                            id="sunday-checkbox-list"
-                            type="checkbox"
-                            onChange={handleChange}
-                            value="SU"
-                            checked={schedule.includes("SU")}
-                            className="w-4 h-4"
-                          />
-                          <label
-                            for="sunday-checkbox-list"
-                            className="w-full py-3 ml-2 text-sm font-medium "
-                          >
-                            Sunday
-                          </label>
-                        </div>
-                      </li>
+                    </li>
+                    <li className="w-full border border-gray-200">
+                      <div className="flex items-center pl-3">
+                        <input
+                          id="tuesday-checkbox-list"
+                          type="checkbox"
+                          className="w-4 h-4"
+                          onChange={handleChange}
+                          value="T"
+                          checked={schedule.includes("T")}
+                        />
+                        <label
+                          for="tuesday-checkbox-list"
+                          className="w-full py-3 ml-2 text-sm font-medium"
+                        >
+                          Tuesday
+                        </label>
+                      </div>
+                    </li>
+                    <li className="w-full border border-gray-200">
+                      <div className="flex items-center pl-3">
+                        <input
+                          id="wednesday-checkbox-list"
+                          type="checkbox"
+                          onChange={handleChange}
+                          value="W"
+                          checked={schedule.includes("W")}
+                          className="w-4 h-4"
+                        />
+                        <label
+                          for="wednesday-checkbox-list"
+                          className="w-full py-3 ml-2 text-sm font-medium"
+                        >
+                          Wednesday
+                        </label>
+                      </div>
+                    </li>
+                    <li className="w-full border border-gray-200">
+                      <div className="flex items-center pl-3">
+                        <input
+                          id="thursday-checkbox-list"
+                          type="checkbox"
+                          onChange={handleChange}
+                          value="TH"
+                          checked={schedule.includes("TH")}
+                          className="w-4 h-4"
+                        />
+                        <label
+                          for="thursday-checkbox-list"
+                          className="w-full py-3 ml-2 text-sm font-medium"
+                        >
+                          Thursday
+                        </label>
+                      </div>
+                    </li>
+                    <li className="w-full border border-gray-200">
+                      <div className="flex items-center pl-3">
+                        <input
+                          id="friday-checkbox-list"
+                          type="checkbox"
+                          onChange={handleChange}
+                          value="F"
+                          checked={schedule.includes("F")}
+                          className="w-4 h-4"
+                        />
+                        <label
+                          for="friday-checkbox-list"
+                          className="w-full py-3 ml-2 text-sm font-medium"
+                        >
+                          Friday
+                        </label>
+                      </div>
+                    </li>
+                    <li className="w-full border border-gray-200">
+                      <div className="flex items-center pl-3">
+                        <input
+                          id="saturday-checkbox-list"
+                          type="checkbox"
+                          onChange={handleChange}
+                          value="SAT"
+                          checked={schedule.includes("SAT")}
+                          className="w-4 h-4"
+                        />
+                        <label
+                          for="saturday-checkbox-list"
+                          className="w-full py-3 ml-2 text-sm font-medium"
+                        >
+                          Saturday
+                        </label>
+                      </div>
+                    </li>
+                    <li className="w-full border border-gray-200">
+                      <div className="flex items-center pl-3">
+                        <input
+                          id="sunday-checkbox-list"
+                          type="checkbox"
+                          onChange={handleChange}
+                          value="SU"
+                          checked={schedule.includes("SU")}
+                          className="w-4 h-4"
+                        />
+                        <label
+                          for="sunday-checkbox-list"
+                          className="w-full py-3 ml-2 text-sm font-medium "
+                        >
+                          Sunday
+                        </label>
+                      </div>
                     </li>
                   </ul>
                 </div>
@@ -294,12 +294,6 @@ function EditEmployee() {
           </div>
         </div>
         <div className="flex flex-row gap-2">
-          <button
-            onClick={() => navigate("/homepage")}
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-          >
-            Back
-          </button>
           <div className="flex flex-row gap-2">
             {isLoading ? (
               <button

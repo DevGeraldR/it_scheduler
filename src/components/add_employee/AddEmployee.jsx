@@ -16,8 +16,9 @@ function AddEmployee() {
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState("");
 
-  // Function to convert time to 12-hour format
-  const formatTimeTo12Hour = (time) => {
+  /***
+   * Function to convert time to 12-hour format
+    const formatTimeTo12Hour = (time) => {
     const [hours, minutes] = time.split(":");
     const timeObject = new Date(0, 0, 0, hours, minutes);
     return timeObject.toLocaleString("en-US", {
@@ -26,6 +27,8 @@ function AddEmployee() {
       hour12: true,
     });
   };
+   */
+
   // Event handler for when the user changes the time
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -69,8 +72,8 @@ function AddEmployee() {
       position: position,
       schedule: schedule,
       shift: shift,
-      startTime: formatTimeTo12Hour(startTime),
-      endTime: formatTimeTo12Hour(endTime),
+      startTime: startTime,
+      endTime: endTime,
       leave: [],
       absent: [],
     });

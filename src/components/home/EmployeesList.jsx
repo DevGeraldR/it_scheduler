@@ -20,7 +20,7 @@ function EmployeesList({ employees }) {
       <tbody>
         {employees.length <= 0 ? (
           <tr>
-            <td className="text-center p-5" colSpan="8">
+            <td className="text-center p-5" colSpan="9">
               No employee
             </td>
           </tr>
