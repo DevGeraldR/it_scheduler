@@ -9,6 +9,7 @@ function EmployeesList({ employees }) {
           <th className="text-center px-2 py-2"> # </th>
           <th className="text-center px-2 py-2"> Name </th>
           <th className="text-center px-2 py-2"> EID </th>
+          <th className="text-center px-2 py-2"> Position </th>
           <th className="text-center px-2 py-2"> Leave </th>
           <th className="text-center px-2 py-2"> Absent </th>
           <th className="text-center px-2 py-2"> Schedule </th>

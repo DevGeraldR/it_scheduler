@@ -43,28 +43,36 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
   };
 
   return (
-    <tr
-      key={index}
-      className="bg-white border border-slate-400 hover:bg-yellow-50"
-    >
-      <td className="text-center px-2 py-2">{index + 1}</td>
-      <td className="text-center px-2 py-2">{employee.fullName}</td>
-      <td className="text-center px-2 py-2">{employee.eid}</td>
-      <td className="text-center px-2 py-2">
+    <tr key={index} className="bg-white hover:bg-yellow-50">
+      <td className="text-center px-2 py-2 border border-slate-400">
+        {index + 1}
+      </td>
+      <td className="text-center px-2 py-2 border border-slate-400">
+        {employee.fullName}
+      </td>
+      <td className="text-center px-2 py-2 border border-slate-400">
+        {employee.eid}
+      </td>
+      <td className="text-center px-2 py-2 border border-slate-400">
+        {employee.position}
+      </td>
+      <td className="text-center px-2 py-2 border border-slate-400">
         {employee.leave ? employee.leave.length : 0}
       </td>
-      <td className="text-center px-2 py-2">
+      <td className="text-center px-2 py-2 border border-slate-400">
         {employee.absent ? employee.absent.length : 0}
       </td>
-      <td className="text-center px-2 py-2">
+      <td className="text-center px-2 py-2 border border-slate-400">
         {employee.schedule.map((d) => {
           return <span key={d}> {d}</span>;
         })}
       </td>
-      <td className="text-center px-2 py-2">{employee.shift}</td>
-      <td className="text-center flex px-2 py-2">
+      <td className="text-center px-2 py-2 border border-slate-400">
+        {employee.shift}
+      </td>
+      <td className="text-center py-2 border border-slate-400">
         <button
-          className="m-auto font-bold text-blue hover:text-blue-600 transition duration-300 ease-in-out transform  hover:scale-110"
+          className="pr-2 mfont-bold text-blue hover:text-blue-600 transition duration-300 ease-in-out transform  hover:scale-110"
           onClick={() => {
             setEmployee(employee);
             navigate("/homepage/employeeInformation");
@@ -74,14 +82,14 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
           <PiFileTextFill size={25} />
         </button>
         <button
-          className="m-auto font-bold text-green hover:text-green-600 transition duration-300 ease-in-out transform  hover:scale-110"
+          className="px-1 font-bold text-green hover:text-green-600 transition duration-300 ease-in-out transform  hover:scale-110"
           onClick={handleClickEdit}
           title="Edit"
         >
           <FaUserEdit size={25} />
         </button>
         <button
-          className="m-auto font-bold text-red hover:text-red-600 transition duration-300 ease-in-out transform  hover:scale-110"
+          className="pl-2 font-bold text-red hover:text-red-600 transition duration-300 ease-in-out transform  hover:scale-110"
           onClick={() => handleClickRemove(employee.eid)}
           title="Delete"
         >

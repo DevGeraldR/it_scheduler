@@ -14,6 +14,7 @@ function AddEmployee() {
   const [startTime, setStartTime] = useState("00:00");
   const [endTime, setEndTime] = useState("12:00");
   const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState("");
 
   // Function to convert time to 12-hour format
   const formatTimeTo12Hour = (time) => {
@@ -65,6 +66,7 @@ function AddEmployee() {
     await setDoc(employeeRef, {
       fullName: fullName,
       eid: eid,
+      position: position,
       schedule: schedule,
       shift: shift,
       startTime: formatTimeTo12Hour(startTime),
@@ -116,6 +118,19 @@ function AddEmployee() {
                     value={eid}
                     onChange={(e) => {
                       setEID(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="md:col-span-5">
+                  <label>Position</label>
+                  <input
+                    type="text"
+                    required
+                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    placeholder="Position"
+                    value={position}
+                    onChange={(e) => {
+                      setPosition(e.target.value);
                     }}
                   />
                 </div>
