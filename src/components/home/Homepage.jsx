@@ -49,6 +49,7 @@ function Hompage() {
   return (
     <div className="flex h-full justify-center bg-gray-100 px-2">
       <div className="my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700 border border-slate-400">
+
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-row gap-2 items-center">
             <div className="font-bold text-slate-900 block mb-0 leading-none">
@@ -78,9 +79,9 @@ function Hompage() {
         </div>
         <br />
         {isLoading ? (
-          <h1 className="text-center pt-5">Retrieving data...</h1>
+          <h1 className="text-center pt-5 font-bold">Retrieving data...</h1>
         ) : (
-          <div className="max-h-[400px] md:max-h-[480px] overflow-scroll">
+          <div className="flex-grow overflow-auto max-h-[600px]">
             <EmplooyeesList employees={searchList} />
           </div>
         )}

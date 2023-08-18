@@ -10,15 +10,7 @@ function EditEmployee() {
   const { employeeId } = useParams();
   const { employee, setEmployee } = useGlobal();
   const navigate = useNavigate();
-  const formatTimeTo12Hour = (time) => {
-    const [hours, minutes] = time.split(":");
-    const timeObject = new Date(0, 0, 0, hours, minutes);
-    return timeObject.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-  };
+
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [fullName, setFullName] = useState(employee.fullName);
@@ -73,15 +65,12 @@ function EditEmployee() {
 
     // Only update the start time if it is edited
     if (startTime !== employee.startTime) {
-      updatedData.startTime = formatTimeTo12Hour(startTime);
-    } else {
       updatedData.startTime = employee.startTime;
     }
 
     // Only update the end time if it is edited
     if (endTime !== employee.endTime) {
-      updatedData.endTime = formatTimeTo12Hour(endTime);
-    } else {
+
       updatedData.endTime = employee.endTime;
     }
 
@@ -105,21 +94,23 @@ function EditEmployee() {
           handleEdit();
         }}
       >
-        <div className="container max-w-screen-lg max-h-[900px] overflow-scroll md:overflow-hidden">
-          <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ">
-            <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-              <div className="text-gray-600">
-                <p className="font-medium text-lg">Edit Employee</p>
-                <p>Edit the employee's details.</p>
+        <div className="container max-w-screen-lg max-h-[900px] rounded-lg ">
+          <div className="container max-w-screen-lg max-h-[900px] rounded-lg">
+            <header className="bg-slate-900 p-3 rounded-t-lg">
+              <div className="ml-5 text-gray-200 mx-auto max-w-screen-lg">
+                <p className="font-bold text-white text-lg">Edit Employee</p>
+                <p>Edit the employee's details</p>
               </div>
+            </header>
+            <div className="bg-white border border-slate-400 rounded-b-lg shadow-lg p-4 px-4 md:p-8 mb-6 ">
               <div className="lg:col-span-2">
-                <div className="grid gap-4 gap-y-4 text-sm grid-cols-1 md:grid-cols-5"></div>
-                <div className="md:col-span-5">
-                  <label>Full Name</label>
+                <div className="grid gap-4 gap-y-4  text-sm grid-cols-1 md:grid-cols-5"></div>
+                <div className="md:col-span-5 ">
+                  <label className="font-bold">Full Name</label>
                   <input
                     type="text"
                     required
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    className="h-10 border mt-1 mb-5 rounded px-4 w-full bg-gray-50"
                     placeholder="Full Name"
                     value={fullName}
                     onChange={(e) => {
@@ -128,40 +119,45 @@ function EditEmployee() {
                   />
                 </div>
                 <div className="md:col-span-5">
-                  <label>Select Shift</label>{" "}
+                  <label className="font-bold">Select Shift</label>{" "}
                   <select
                     id="shift"
                     value={shift}
                     type="combobox"
-                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                    className="h-10 border mt-1  mb-5 rounded px-4 w-full bg-gray-50"
                     onChange={handleShiftChange}
                   >
                     <option value="Morning">Morning</option>
                     <option value="Night">Night</option>
                   </select>
                 </div>
-                <div className="md:col-span-5">
-                  <label>Start Time:</label>{" "}
-                  <input
-                    type="time"
-                    id="startTime"
-                    className="h-10 border mt-1 rounded px-4 w-500 bg-gray-50"
-                    value={startTime}
-                    onChange={handleStartTimeChange}
-                  />{" "}
-                  <label>End Time:</label>{" "}
-                  <input
-                    type="time"
-                    id="endTime"
-                    className="h-10 border mt-1 rounded px-4 w-500 bg-gray-50"
-                    value={endTime}
-                    onChange={handleEndTimeChange}
-                  />
+                <div className="md:col-span-5 mb-5 flex flex-col md:flex-row">
+                  <div className="mb-2 md:mb-0">
+                    <label className="font-bold">Start Time:</label>
+                    <input
+                      type="time"
+                      id="startTime"
+                      className="h-10 border mt-1 ml-2 rounded px-4 w-500 bg-gray-50"
+                      value={startTime}
+                      onChange={handleStartTimeChange}
+                    />
+                  </div>
+
+                  <div className="md:ml-2">
+                    <label className="font-bold">End Time:</label>
+                    <input
+                      type="time"
+                      id="endTime"
+                      className="h-10 border mt-1 ml-2 rounded px-4 w-500 bg-gray-50"
+                      value={endTime}
+                      onChange={handleEndTimeChange}
+                    />
+                  </div>
                 </div>
-                <div className="md:col-span-5">
-                  <label>Schedule</label>
-                  <ul className="items-center w-full text-gray-500 bg-white sm:flex">
-                    <li className="w-full border border-gray-200">
+                <div className="md:col-span-5 ">
+                  <label className="font-bold">Schedule</label>
+                  <ul className="items-center w-full text-gray-500 mt-2 bg-white sm:flex">
+                    <li className="w-full rounded-lg ml-1 shadow-sm mt-1 border border-gray-200 hover:border-slate-400 ">
                       <div className="flex items-center pl-3">
                         <input
                           id="monday-checkbox-list"
@@ -179,7 +175,7 @@ function EditEmployee() {
                         </label>
                       </div>
                     </li>
-                    <li className="w-full border border-gray-200">
+                    <li className="w-full rounded-lg  ml-1 shadow-sm mt-1 border border-gray-200 hover:border-slate-400">
                       <div className="flex items-center pl-3">
                         <input
                           id="tuesday-checkbox-list"
@@ -197,7 +193,7 @@ function EditEmployee() {
                         </label>
                       </div>
                     </li>
-                    <li className="w-full border border-gray-200">
+                    <li className="w-full rounded-lg  ml-1 shadow-sm mt-1 border border-gray-200 hover:border-slate-400">
                       <div className="flex items-center pl-3">
                         <input
                           id="wednesday-checkbox-list"
@@ -215,7 +211,7 @@ function EditEmployee() {
                         </label>
                       </div>
                     </li>
-                    <li className="w-full border border-gray-200">
+                    <li className="w-full rounded-lg  ml-1 shadow-sm mt-1 border border-gray-200 hover:border-slate-400">
                       <div className="flex items-center pl-3">
                         <input
                           id="thursday-checkbox-list"
@@ -233,7 +229,7 @@ function EditEmployee() {
                         </label>
                       </div>
                     </li>
-                    <li className="w-full border border-gray-200">
+                    <li className="w-full rounded-lg  ml-1 shadow-sm mt-1 border border-gray-200 hover:border-slate-400">
                       <div className="flex items-center pl-3">
                         <input
                           id="friday-checkbox-list"
@@ -251,7 +247,7 @@ function EditEmployee() {
                         </label>
                       </div>
                     </li>
-                    <li className="w-full border border-gray-200">
+                    <li className="w-full rounded-lg  ml-1 shadow-sm mt-1 border border-gray-200 hover:border-slate-400">
                       <div className="flex items-center pl-3">
                         <input
                           id="saturday-checkbox-list"
@@ -269,8 +265,8 @@ function EditEmployee() {
                         </label>
                       </div>
                     </li>
-                    <li className="w-full border border-gray-200">
-                      <div className="flex items-center pl-3">
+                    <li className="w-full rounded-lg  ml-1 shadow-sm mt-1  border border-gray-200 hover:border-slate-400">
+                      <div className="flex items-center pl-3 ">
                         <input
                           id="sunday-checkbox-list"
                           type="checkbox"
@@ -281,7 +277,7 @@ function EditEmployee() {
                         />
                         <label
                           for="sunday-checkbox-list"
-                          className="w-full py-3 ml-2 text-sm font-medium "
+                          className=" w-full py-3 ml-2 text-sm font-medium "
                         >
                           Sunday
                         </label>
@@ -325,7 +321,7 @@ function EditEmployee() {
             ) : (
               <button
                 type="submit"
-                className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                className="hover:text-white border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Add
               </button>
