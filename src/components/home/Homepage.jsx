@@ -47,8 +47,8 @@ function Hompage() {
   };
 
   return (
-    <div className="container max-h-[900px] px-2">
-      <div className="my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700 border border-slate-400">
+    <div className="flex h-full bg-gray-200 justify-center px-2">
+      <div className="flex flex-col overflow-hidden my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700 border border-slate-400">
         {!isLoading ? (
           <>
             <div className="flex flex-col md:flex-row justify-between items-center">
@@ -78,12 +78,12 @@ function Hompage() {
               </button>
             </div>{" "}
             <br />
-            <div className="max-h-[400px] md:max-h-[480px] overflow-scroll">
+            <div className="overflow-scroll">
               <EmplooyeesList employees={searchList} />
             </div>
           </>
         ) : (
-          <div className="flex flex-col gap-2 items-center justify-center">
+          <div className="flex flex-col gap-2 items-center justify-center h-full">
             <div className="pr-1 flex items-center justify-center space-x-2 animate-bounce">
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
