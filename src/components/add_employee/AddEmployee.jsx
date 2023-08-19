@@ -189,7 +189,7 @@ function AddEmployee() {
                           value="M"
                         />
                         <label
-                          for="monday-checkbox-list"
+                          htmlFor="monday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Monday
@@ -206,7 +206,7 @@ function AddEmployee() {
                           value="T"
                         />
                         <label
-                          for="tuesday-checkbox-list"
+                          htmlFor="tuesday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Tuesday
@@ -223,7 +223,7 @@ function AddEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="wednesday-checkbox-list"
+                          htmlFor="wednesday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Wednesday
@@ -240,7 +240,7 @@ function AddEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="thursday-checkbox-list"
+                          htmlFor="thursday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Thursday
@@ -257,7 +257,7 @@ function AddEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="friday-checkbox-list"
+                          htmlFor="friday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Friday
@@ -274,7 +274,7 @@ function AddEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="saturday-checkbox-list"
+                          htmlFor="saturday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Saturday
@@ -291,7 +291,7 @@ function AddEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="sunday-checkbox-list"
+                          htmlFor="sunday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium "
                         >
                           Sunday
@@ -301,7 +301,6 @@ function AddEmployee() {
                   </ul>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -310,7 +309,7 @@ function AddEmployee() {
         {isLoading ? (
           <button
             disabled
-            className="bg-yellow-400 transition duration-300 ease-in-out transform hover:scale-110 text-black hover:bg-yellow-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className=" mt-10 md:mt-0 bg-yellow-400 transition duration-300 ease-in-out transform hover:scale-110 text-black hover:bg-yellow-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             <svg
               className="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
@@ -337,7 +336,7 @@ function AddEmployee() {
         ) : (
           <button
             type="submit"
-            className="hover:text-white mt-10 border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="hover:text-white mt-10 md:mt-0 border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Add
           </button>
@@ -411,7 +410,7 @@ function AddEmployee() {
           </div>
         </Dialog>
       </Transition>
-    </form >
+    </form>
   );
 }
 

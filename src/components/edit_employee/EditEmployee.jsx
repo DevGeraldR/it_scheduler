@@ -70,7 +70,6 @@ function EditEmployee() {
 
     // Only update the end time if it is edited
     if (endTime !== employee.endTime) {
-
       updatedData.endTime = employee.endTime;
     }
 
@@ -186,7 +185,7 @@ function EditEmployee() {
                           checked={schedule.includes("T")}
                         />
                         <label
-                          for="tuesday-checkbox-list"
+                          htmlFor="tuesday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Tuesday
@@ -204,7 +203,7 @@ function EditEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="wednesday-checkbox-list"
+                          htmlFor="wednesday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Wednesday
@@ -222,7 +221,7 @@ function EditEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="thursday-checkbox-list"
+                          htmlFor="thursday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Thursday
@@ -240,7 +239,7 @@ function EditEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="friday-checkbox-list"
+                          htmlFor="friday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Friday
@@ -258,7 +257,7 @@ function EditEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="saturday-checkbox-list"
+                          htmlFor="saturday-checkbox-list"
                           className="w-full py-3 ml-2 text-sm font-medium"
                         >
                           Saturday
@@ -276,7 +275,7 @@ function EditEmployee() {
                           className="w-4 h-4"
                         />
                         <label
-                          for="sunday-checkbox-list"
+                          htmlFor="sunday-checkbox-list"
                           className=" w-full py-3 ml-2 text-sm font-medium "
                         >
                           Sunday
@@ -321,7 +320,7 @@ function EditEmployee() {
             ) : (
               <button
                 type="submit"
-                className="hover:text-white border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                className="hover:text-white border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 Add
               </button>
