@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase/Firebase";
+import { db, storage } from "../firebase/Firebase";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import dayjs from "dayjs";
 import { Dialog, Transition } from "@headlessui/react";
@@ -10,6 +10,7 @@ import { Dialog, Transition } from "@headlessui/react";
 /**Calendar */
 import { generateDate, months } from "./calendar";
 import cn from "./cn";
+import { deleteObject, ref } from "firebase/storage";
 
 function EmployeeInformation() {
   const { employee } = useGlobal();
@@ -21,6 +22,7 @@ function EmployeeInformation() {
 
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
+
   // eslint-disable-next-line
   const handleClickRemove = (eid) => {
     setShowConfirmDialog(true);
@@ -29,11 +31,20 @@ function EmployeeInformation() {
   const handleConfirmRemove = async (eid) => {
     setIsLoading(true);
     const employeeRef = doc(db, "employees", eid);
+    const profileRef = ref(storage, employee.profilePath);
 
     try {
       await deleteDoc(employeeRef);
       // Call the parent's handler to remove the employee from the list
 
+      // Delete the picture
+      if (
+        employee.profileUrl &&
+        employee.profilePath !== "/images/defaultAvatar.png"
+      ) {
+        // Delete the file
+        deleteObject(profileRef);
+      }
       setIsLoading(false);
       setShowConfirmDialog(false);
       navigate("/homepage");

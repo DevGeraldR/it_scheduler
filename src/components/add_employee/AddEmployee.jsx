@@ -22,7 +22,7 @@ function AddEmployee() {
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState("");
   const [profile, setProfile] = useState(null);
-  const [url, setUrl] = useState("");
+  const [profileUrl, setProfileUrl] = useState("");
   // progress
   const [percent, setPercent] = useState(0);
   const [profilePath, setProfilePath] = useState("");
@@ -88,8 +88,8 @@ function AddEmployee() {
       endTime: endTime,
       leave: [],
       absent: [],
-      profileUrl: url
-        ? url
+      profileUrl: profileUrl
+        ? profileUrl
         : "https://firebasestorage.googleapis.com/v0/b/taskus-scheduler-de0cc.appspot.com/o/images%2FdefaultAvatar.png?alt=media&token=005ec2b7-0e94-4a89-b6c9-f963d8ab05d9",
       profilePath: profilePath ? profilePath : "/images/defaultAvatar.png",
     });
@@ -105,7 +105,7 @@ function AddEmployee() {
       return;
     }
 
-    if (url) {
+    if (profileUrl) {
       // Create a reference to the file to delete
       const desertRef = ref(storage, profilePath);
 
@@ -139,9 +139,9 @@ function AddEmployee() {
       },
       (err) => console.log(err),
       () => {
-        // download url
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setUrl(url);
+        // download profileUrl
+        getDownloadURL(uploadTask.snapshot.ref).then((profileUrl) => {
+          setProfileUrl(profileUrl);
         });
       }
     );
@@ -173,7 +173,7 @@ function AddEmployee() {
   function removeFile() {
     hiddenFileInput.current.value = null;
     setProfile(null);
-    setUrl("");
+    setProfileUrl("");
     setPercent(0);
     setProfilePath("");
   }

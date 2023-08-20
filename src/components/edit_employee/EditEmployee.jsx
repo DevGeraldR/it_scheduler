@@ -25,7 +25,7 @@ function EditEmployee() {
   const [startTime, setStartTime] = useState(employee.startTime);
   const [endTime, setEndTime] = useState(employee.endTime);
   const [profile, setProfile] = useState(null);
-  const [url, setUrl] = useState(employee.profileUrl);
+  const [profileUrl, setProfileUrl] = useState(employee.profileUrl);
   const hiddenFileInput = useRef(null);
   // progress
   const [percent, setPercent] = useState(0);
@@ -73,7 +73,7 @@ function EditEmployee() {
       fullName: fullName,
       schedule: schedule,
       shift: shift,
-      profileUrl: url,
+      profileUrl: profileUrl,
       profilePath: profilePath,
     };
 
@@ -105,7 +105,7 @@ function EditEmployee() {
       return;
     }
 
-    if (url && profilePath !== "/images/defaultAvatar.png") {
+    if (profileUrl && profilePath !== "/images/defaultAvatar.png") {
       // Create a reference to the file to delete
       const desertRef = ref(storage, profilePath);
 
@@ -139,9 +139,9 @@ function EditEmployee() {
       },
       (err) => console.log(err),
       () => {
-        // download url
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setUrl(url);
+        // download profileUrl
+        getDownloadURL(uploadTask.snapshot.ref).then((profileUrl) => {
+          setProfileUrl(profileUrl);
         });
       }
     );
@@ -173,7 +173,7 @@ function EditEmployee() {
   function removeFile() {
     hiddenFileInput.current.value = null;
     setProfile(null);
-    setUrl(employee.profileUrl);
+    setProfileUrl(employee.profileUrl);
     setPercent(0);
     setProfilePath(employee.profilePath);
   }

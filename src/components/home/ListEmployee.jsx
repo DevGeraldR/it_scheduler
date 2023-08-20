@@ -2,11 +2,12 @@ import React, { useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase/Firebase";
+import { db, storage } from "../firebase/Firebase";
 import { PiFileTextFill } from "react-icons/pi";
 import { MdDelete } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import { Dialog, Transition } from "@headlessui/react";
+import { deleteObject, ref } from "firebase/storage";
 function ListEmployee({ employee, index, onRemoveEmployee }) {
   const { setEmployee } = useGlobal();
   const navigate = useNavigate();
@@ -20,14 +21,23 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
   const handleConfirmRemove = async (eid) => {
     setIsLoading(true);
     const employeeRef = doc(db, "employees", eid);
+    const profileRef = ref(storage, employee.profilePath);
 
     try {
       await deleteDoc(employeeRef);
       // Call the parent's handler to remove the employee from the list
 
+      // Delete the picture
+      if (
+        employee.profileUrl &&
+        employee.profilePath !== "/images/defaultAvatar.png"
+      ) {
+        // Delete the file
+        deleteObject(profileRef);
+      }
       setIsLoading(false);
       setShowConfirmDialog(false);
-      onRemoveEmployee(eid);
+      navigate("/homepage");
       // Close the confirmation dialog
     } catch (error) {
       console.error("Error removing employee:", error);
