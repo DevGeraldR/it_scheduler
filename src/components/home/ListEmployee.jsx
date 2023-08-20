@@ -40,7 +40,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
       navigate("/homepage");
       // Close the confirmation dialog
     } catch (error) {
-      console.error("Error removing employee:", error);
+      console.log("Error removing employee:", error);
     }
   };
 

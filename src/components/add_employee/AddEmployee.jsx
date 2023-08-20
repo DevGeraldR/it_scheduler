@@ -105,20 +105,6 @@ function AddEmployee() {
       return;
     }
 
-    if (profileUrl) {
-      // Create a reference to the file to delete
-      const desertRef = ref(storage, profilePath);
-
-      // Delete the file
-      deleteObject(desertRef)
-        .then(() => {
-          console.log("File deleted successfully");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
     setProfilePath(`/images/${profile.name}`);
 
     const storageRef = ref(storage, `/images/${profile.name}`);
