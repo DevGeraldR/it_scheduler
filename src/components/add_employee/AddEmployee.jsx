@@ -102,6 +102,7 @@ function AddEmployee() {
     e.preventDefault();
     if (!profile) {
       alert("Please upload an image first!");
+      return;
     }
 
     if (url) {
@@ -144,6 +145,24 @@ function AddEmployee() {
         });
       }
     );
+  };
+
+  const handleClickRemove = (e) => {
+    e.preventDefault();
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, profilePath);
+
+    // Delete the file
+    deleteObject(desertRef)
+      .then(() => {
+        console.log("File deleted successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // To reformat the variable
+    removeFile();
   };
 
   // Handles input change event and updates state
@@ -215,7 +234,12 @@ function AddEmployee() {
                     onChange={handleChangeProfile}
                   />
                   <button onClick={handleClickUpload}>Upload</button>
-                  <p>{percent} "% done"</p>
+                  <p>{percent}% done</p>
+                  {percent === 100 ? (
+                    <button onClick={handleClickRemove}>Remove</button>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 <div className="md:col-span-5">
                   <label className="font-bold"> Position</label>

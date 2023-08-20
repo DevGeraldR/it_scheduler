@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
 import { db, storage } from "../firebase/Firebase";
@@ -24,8 +24,9 @@ function EditEmployee() {
   const [shift, setShift] = useState(employee.shift);
   const [startTime, setStartTime] = useState(employee.startTime);
   const [endTime, setEndTime] = useState(employee.endTime);
-  const [profile, setProfile] = useState("");
+  const [profile, setProfile] = useState(null);
   const [url, setUrl] = useState(employee.profileUrl);
+  const hiddenFileInput = useRef(null);
   // progress
   const [percent, setPercent] = useState(0);
   const [profilePath, setProfilePath] = useState(employee.profilePath);
@@ -101,6 +102,7 @@ function EditEmployee() {
     e.preventDefault();
     if (!profile) {
       alert("Please upload an image first!");
+      return;
     }
 
     if (url && profilePath !== "/images/defaultAvatar.png") {
@@ -150,6 +152,32 @@ function EditEmployee() {
     setProfile(event.target.files[0]);
   }
 
+  const handleClickRemove = (e) => {
+    e.preventDefault();
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, profilePath);
+
+    // Delete the file
+    deleteObject(desertRef)
+      .then(() => {
+        console.log("File deleted successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // To reformat the variable
+    removeFile();
+  };
+
+  function removeFile() {
+    hiddenFileInput.current.value = null;
+    setProfile(null);
+    setUrl(employee.profileUrl);
+    setPercent(0);
+    setProfilePath(employee.profilePath);
+  }
+
   return (
     <form
       className="flex flex-col min-h-full p-6 bg-gray-200 flex items-center justify-center"
@@ -187,11 +215,17 @@ function EditEmployee() {
                 <input
                   type="file"
                   accept="image/*"
+                  ref={hiddenFileInput}
                   className="w-full"
                   onChange={handleChangeProfile}
                 />
                 <button onClick={handleClickUpload}>Upload</button>
-                <p>{percent} "% done"</p>
+                <p>{percent}% done</p>
+                {percent === 100 ? (
+                  <button onClick={handleClickRemove}>Remove</button>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="md:col-span-5">
                 <label className="font-bold">Select Shift</label>{" "}
