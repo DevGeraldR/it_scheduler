@@ -20,9 +20,14 @@ export function AuthProvider({ children }) {
       await signInWithEmailAndPassword(auth, email, password);
       setError(null);
     } catch (error) {
-      setError(error.message);
+      if (error.code === "auth/invalid-email" || error.code === "auth/user-not-found") {
+        setError("Wrong password or email");
+      } else {
+        setError(error.message);
+      }
     }
-  };
+  }
+  
 
   const logOut = async () => {
     try {
@@ -65,7 +70,7 @@ export function AuthProvider({ children }) {
           <Dialog.Title className="text-lg font-semibold mb-2">Error</Dialog.Title>
           <p className="text-red-600">{error}</p>
           <button
-            className="mt-4 px-2 py-1 bg-red-600 text-white rounded-md"
+             className="hover:text-white mt-4 px-2 py-1  bg-red-300 w-[50px]l-[110px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             onClick={() => setError(null)}
           >
             Close

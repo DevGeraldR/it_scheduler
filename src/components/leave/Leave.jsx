@@ -18,10 +18,10 @@ function Leave() {
         <div className="overflow-scroll">
           <LeavesList leaves={employee.leave} />
         </div>
-        <div className="w-screen flex justify-center p-10 gap-5">
+        <div className="w-screen flex justify-center p-10 gap-2">
           <button
             onClick={() => navigate("/homepage/employeeInformation/")}
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Back
           </button>
@@ -29,7 +29,7 @@ function Leave() {
             onClick={() =>
               navigate("/homepage/employeeInformation/leave/addLeave")
             }
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Add Leave
           </button>

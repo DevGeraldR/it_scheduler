@@ -16,7 +16,7 @@ function EditEmployee() {
   const { employeeId } = useParams();
   const { employee, setEmployee } = useGlobal();
   const navigate = useNavigate();
-
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [fullName, setFullName] = useState(employee.fullName);
@@ -101,7 +101,7 @@ function EditEmployee() {
   const handleClickUpload = (e) => {
     e.preventDefault();
     if (!profile) {
-      alert("Please upload an image first!");
+     setShowConfirmDialog(true);
       return;
     }
 
@@ -403,6 +403,67 @@ function EditEmployee() {
           </div>
         </div>
       </div>
+      <Transition appear show={showConfirmDialog} as={Fragment}>
+        <Dialog
+            as="div"
+            className="relative z-10"
+            onClose={() => {
+              setIsSuccessfulOpen(false);
+            }}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="transition-opacity ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transition-transform ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="transition-transform ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel
+                    className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                    static
+                  >
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-red-900"
+                    >
+                      Error!
+                    </Dialog.Title>
+                    <div className="mt-2">
+                    <p className="text-sm font-medium text-gray-800">Please upload a photo!</p>
+                    </div>
+
+                    <div className="mt-4">
+                      <button
+                        type="button"
+                        className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={() => { setShowConfirmDialog(false);
+                        }}
+                      >
+                        Okay
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
       <div className="flex flex-row gap-2">
         <div className="flex flex-row gap-2">
           {isLoading ? (

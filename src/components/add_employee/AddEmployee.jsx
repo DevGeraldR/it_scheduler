@@ -27,6 +27,8 @@ function AddEmployee() {
   const [percent, setPercent] = useState(0);
   const [profilePath, setProfilePath] = useState("");
   const hiddenFileInput = useRef(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
   /***
    * Function to convert time to 12-hour format
     const formatTimeTo12Hour = (time) => {
@@ -100,7 +102,7 @@ function AddEmployee() {
   const handleClickUpload = (e) => {
     e.preventDefault();
     if (!profile) {
-      alert("Please upload an image first!");
+      setShowConfirmDialog(true);
       return;
     }
 
@@ -423,7 +425,70 @@ function AddEmployee() {
           </div>
         </div>
       </div>
-      <div className="flex flex-row gap-2 p-10 mt-0 justify-center">
+      <Transition appear show={showConfirmDialog} as={Fragment}>
+        <Dialog
+            as="div"
+            className="relative z-10"
+            onClose={() => {
+              setIsSuccessfulOpen(false);
+            }}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="transition-opacity ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transition-transform ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="transition-transform ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel
+                    className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                    static
+                  >
+                    <Dialog.Title
+                      as="h3"
+                      className="text-lg font-medium leading-6 text-red-900"
+                    >
+                      Error!
+                    </Dialog.Title>
+                    <div className="mt-2">
+                    <p className="text-sm font-medium text-gray-800">Please upload a photo!</p>
+                    </div>
+
+                    <div className="mt-4">
+                      <button
+                        type="button"
+                        className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        onClick={() => { setShowConfirmDialog(false);
+                        }}
+                      >
+                        Okay
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+
+
+      <div className="flex p-2  justify-center">
         {isLoading ? (
           <button
             disabled
@@ -449,12 +514,12 @@ function AddEmployee() {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            Loading...
+            Please wait...
           </button>
         ) : (
           <button
             type="submit"
-            className="hover:text-white mt-10 md:mt-0 border border-slate-400 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="hover:text-white mt-10 md:mt-0 shadow-md border bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Add
           </button>
@@ -508,13 +573,13 @@ function AddEmployee() {
                     Success!
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">Employee added.</p>
+                    <p className="text-sm text-gray-500">Employee has been added.</p>
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="hover:text-white  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110 border border-transparent bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="hover:text-white  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100 border border-transparent bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         setFullName("");
                         setEID("");

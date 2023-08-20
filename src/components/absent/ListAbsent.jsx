@@ -42,7 +42,7 @@ function ListAbsent({ absent, index }) {
       <td className="text-center  px-2 py-2">
         <button
           type="submit"
-          className="bg-red-100 text-red-900 hover:bg-red-200 pl-3 pr-2 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+          className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[85px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={handleClickRemove}
         >
           Remove
@@ -68,7 +68,7 @@ function ListAbsent({ absent, index }) {
                 <p>Are you sure you want to remove this Absent?</p>
                 <div className="flex justify-end mt-4 space-x-1">
                   <button
-                    className="bg-blue-100 text-blue-900 hover:bg-blue-200 pl-3 pr-2 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                   className="hover:text-white mt-10 md:mt-0  bg-blue-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={() => setShowConfirmDialog(false)}
                   >
                     Cancel
@@ -102,7 +102,7 @@ function ListAbsent({ absent, index }) {
                     </button>
                   ) : (
                     <button
-                      className="bg-red-100 text-red-900 hover:bg-red-200 pl-3 pr-2 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                    className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[50px]l-[110px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={handleConfirmRemove}
                     >
                       Yes, remove.

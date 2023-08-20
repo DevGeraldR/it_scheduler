@@ -143,13 +143,13 @@ function AddLeave() {
                       Success!
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">Leave added.</p>
+                    <p className="text-sm font-medium text-gray-500"><span style={{color: "#333333"}}>Leave</span> has been added.</p>
                     </div>
 
                     <div className="mt-4">
                       <button
                         type="button"
-                        className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                        className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={() => {
                           setDate({
                             startDate: null,
@@ -171,14 +171,14 @@ function AddLeave() {
         <div className="flex p-2 w-full justify-center gap-2">
           <button
             onClick={() => navigate("/homepage/employeeInformation/leave")}
-            className="bg-blue-100 text-blue-900 hover:bg-blue-200 inline-flex justify-center rounded-md border border-transparent px-3 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Back
           </button>
           {isLoading ? (
             <button
               disabled
-              className="bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500 inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              className=" mt-10 md:mt-0 bg-yellow-400 transition duration-300 ease-in-out transform hover:scale-110 text-black hover:bg-yellow-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
             >
               <svg
                 className="w-5 h-5 mr-3 -ml-1 text-blue-900 animate-spin"
@@ -211,7 +211,7 @@ function AddLeave() {
               className={`${
                 date.startDate === null && date.endDate === null
                   ? "bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500"
-                  : "bg-blue-100 text-blue-900 hover:bg-blue-200 focus-visible:ring-blue-500"
+                  : "hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               } inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
             >
               Add
