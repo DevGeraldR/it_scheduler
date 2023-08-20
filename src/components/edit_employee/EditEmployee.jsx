@@ -103,7 +103,7 @@ function EditEmployee() {
       alert("Please upload an image first!");
     }
 
-    if (url) {
+    if (url && profilePath !== "/images/defaultAvatar.png") {
       // Create a reference to the file to delete
       const desertRef = ref(storage, profilePath);
 
