@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState, Fragment } from "react";
-import { db } from "../firebase/Firebase";
+import { db, storage } from "../firebase/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { Dialog, Transition } from "@headlessui/react";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 function AddEmployee() {
   const [fullName, setFullName] = useState();
@@ -15,6 +21,12 @@ function AddEmployee() {
   const [endTime, setEndTime] = useState("12:00");
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [url, setUrl] = useState("");
+  // progress
+  const [percent, setPercent] = useState(0);
+  const [profilePath, setProfilePath] = useState("");
+  const hiddenFileInput = useRef(null);
 
   /***
    * Function to convert time to 12-hour format
@@ -76,10 +88,76 @@ function AddEmployee() {
       endTime: endTime,
       leave: [],
       absent: [],
+      profileUrl: url
+        ? url
+        : "https://firebasestorage.googleapis.com/v0/b/taskus-scheduler-de0cc.appspot.com/o/images%2FdefaultAvatar.png?alt=media&token=005ec2b7-0e94-4a89-b6c9-f963d8ab05d9",
+      profilePath: profilePath ? profilePath : "/images/defaultAvatar.png",
     });
+
     setIsLoading(false);
     setIsSuccessfulOpen(true);
   };
+
+  const handleClickUpload = (e) => {
+    e.preventDefault();
+    if (!profile) {
+      alert("Please upload an image first!");
+    }
+
+    if (url) {
+      // Create a reference to the file to delete
+      const desertRef = ref(storage, profilePath);
+
+      // Delete the file
+      deleteObject(desertRef)
+        .then(() => {
+          console.log("File deleted successfully");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    setProfilePath(`/images/${profile.name}`);
+
+    const storageRef = ref(storage, `/images/${profile.name}`);
+
+    // progress can be paused and resumed. It also exposes progress updates.
+    // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, profile);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setUrl(url);
+        });
+      }
+    );
+  };
+
+  // Handles input change event and updates state
+  function handleChangeProfile(event) {
+    setProfile(event.target.files[0]);
+  }
+
+  function removeFile() {
+    hiddenFileInput.current.value = null;
+    setProfile(null);
+    setUrl("");
+    setPercent(0);
+    setProfilePath("");
+  }
 
   return (
     <form
@@ -125,6 +203,19 @@ function AddEmployee() {
                       setEID(e.target.value);
                     }}
                   />
+                </div>
+
+                <div className="md:col-span-5">
+                  <label className="font-bold">Profile picture</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="w-full"
+                    ref={hiddenFileInput}
+                    onChange={handleChangeProfile}
+                  />
+                  <button onClick={handleClickUpload}>Upload</button>
+                  <p>{percent} "% done"</p>
                 </div>
                 <div className="md:col-span-5">
                   <label className="font-bold"> Position</label>
@@ -350,10 +441,7 @@ function AddEmployee() {
           onClose={() => {
             setFullName("");
             setEID("");
-            setShift("Morning");
-            setSchedule([]);
-            setStartTime("00:00");
-            setEndTime("12:00");
+            removeFile();
             setIsSuccessfulOpen(false);
           }}
         >
@@ -398,6 +486,7 @@ function AddEmployee() {
                       onClick={() => {
                         setFullName("");
                         setEID("");
+                        removeFile();
                         setIsSuccessfulOpen(false);
                       }}
                     >

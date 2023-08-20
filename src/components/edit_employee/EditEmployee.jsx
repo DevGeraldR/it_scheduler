@@ -1,10 +1,16 @@
 import React, { useState, Fragment } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGlobal } from "../context/Context";
-import { db } from "../firebase/Firebase";
+import { db, storage } from "../firebase/Firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
 import { Dialog, Transition } from "@headlessui/react";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 
 function EditEmployee() {
   const { employeeId } = useParams();
@@ -18,6 +24,11 @@ function EditEmployee() {
   const [shift, setShift] = useState(employee.shift);
   const [startTime, setStartTime] = useState(employee.startTime);
   const [endTime, setEndTime] = useState(employee.endTime);
+  const [profile, setProfile] = useState("");
+  const [url, setUrl] = useState(employee.profileUrl);
+  // progress
+  const [percent, setPercent] = useState(0);
+  const [profilePath, setProfilePath] = useState(employee.profilePath);
 
   const handleShiftChange = (e) => {
     setShift(e.target.value);
@@ -61,6 +72,8 @@ function EditEmployee() {
       fullName: fullName,
       schedule: schedule,
       shift: shift,
+      profileUrl: url,
+      profilePath: profilePath,
     };
 
     // Only update the start time if it is edited
@@ -84,8 +97,60 @@ function EditEmployee() {
     setIsSuccessfulOpen(true);
   };
 
-  return (
+  const handleClickUpload = (e) => {
+    e.preventDefault();
+    if (!profile) {
+      alert("Please upload an image first!");
+    }
 
+    if (url) {
+      // Create a reference to the file to delete
+      const desertRef = ref(storage, profilePath);
+
+      // Delete the file
+      deleteObject(desertRef)
+        .then(() => {
+          console.log("File deleted successfully");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
+    setProfilePath(`/images/${profile.name}`);
+
+    const storageRef = ref(storage, `/images/${profile.name}`);
+
+    // progress can be paused and resumed. It also exposes progress updates.
+    // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, profile);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setUrl(url);
+        });
+      }
+    );
+  };
+
+  // Handles input change event and updates state
+  function handleChangeProfile(event) {
+    setProfile(event.target.files[0]);
+  }
+
+  return (
     <form
       className="flex flex-col min-h-full p-6 bg-gray-200 flex items-center justify-center"
       onSubmit={(e) => {
@@ -116,6 +181,17 @@ function EditEmployee() {
                     setFullName(e.target.value);
                   }}
                 />
+              </div>
+              <div className="md:col-span-5">
+                <label className="font-bold">New Profile picture</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="w-full"
+                  onChange={handleChangeProfile}
+                />
+                <button onClick={handleClickUpload}>Upload</button>
+                <p>{percent} "% done"</p>
               </div>
               <div className="md:col-span-5">
                 <label className="font-bold">Select Shift</label>{" "}
@@ -384,7 +460,6 @@ function EditEmployee() {
         </Transition>
       </div>
     </form>
-
   );
 }
 
