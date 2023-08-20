@@ -196,21 +196,40 @@ function EditEmployee() {
                   }}
                 />
               </div>
-              <div className="md:col-span-5">
-                <label className="font-bold">New Profile picture</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={hiddenFileInput}
-                  className="w-full"
-                  onChange={handleChangeProfile}
-                />
-                <button onClick={handleClickUpload}>Upload</button>
-                <p>{percent}% done</p>
-                {percent === 100 ? (
-                  <button onClick={handleClickRemove}>Remove</button>
-                ) : (
-                  ""
+              <div className="md:col-span-5 ">
+                <label className="font-bold">Profile picture</label>
+                <div className="flex items-center mt-1">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className=" w-15"
+                    ref={hiddenFileInput}
+                    onChange={handleChangeProfile}
+                  />
+
+                  <button
+                    onClick={handleClickUpload}
+                    className="ml-auto px-3 py-1 bg-slate-900 text-white rounded hover:bg-slate-600"
+                  >
+                    Upload
+                  </button>
+                </div>
+                <div className="mt-2">
+                  <div className="relative h-2 bg-gray-300 rounded-md">
+                    <div
+                      className="absolute h-full bg-slate-500 rounded-md"
+                      style={{ width: `${percent}%` }}
+                    ></div>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-500">{percent}% done</p>
+                </div>
+                {percent === 100 && (
+                  <button
+                    onClick={handleClickRemove}
+                    className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
                 )}
               </div>
               <div className="md:col-span-5">

@@ -6,7 +6,9 @@ import { db, storage } from "../firebase/Firebase";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import dayjs from "dayjs";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { TbCalendarTime } from "react-icons/tb";
+import { TbCalendarX } from "react-icons/tb";
+import { RiDeleteBin7Line } from "react-icons/ri";
 /**Calendar */
 import { generateDate, months } from "./calendar";
 import cn from "./cn";
@@ -77,8 +79,67 @@ function EmployeeInformation() {
           <div className="bg-white border border-slate-400 rounded-b-lg shadow-lg p-4 px-4 md:p-8 ">
             <div className="flex gap-5 items-center lg:divide-x sm:w-1/2">
               <div className="flex gap-10 items-center lg:flex-row flex-col">
-                <div className="md:w-[600px] h-fit border border-black p-2">
-                  <div className="flex justify-between items-center">
+                <div className="border border-slate-200 h-fit w-96 sm:px-5 max-w-[300px] bg-white rounded-lg shadow-lg p-2">
+                  <img
+                    className="border border-slate-200 w-32 h-32 rounded-full mx-auto"
+                    src={employee.profileUrl}
+                    alt="Profile"
+                  />
+                  <h2 className="font-bold text-center text-2xl font-semibold mt-2">
+                    {employee.fullName}
+                  </h2>
+                  <p className="font-bold text-center text-gray-600 mt-1">
+                    {employee.position}
+                  </p>
+                  <div className="font-bold flex justify-center mt-2">
+                    <button
+                      onClick={() =>
+                        navigate("/homepage/employeeInformation/leave")
+                      }
+                      className="text-slate-900 hover:text-cyan-600 mx-3"
+                      title="Leave"
+                    >
+                      <TbCalendarTime size={25} />
+                    </button>
+                    <button
+                      onClick={() =>
+                        navigate("/homepage/employeeInformation/absent")
+                      }
+                      className="text-slate-900 hover:text-cyan-600 mx-3"
+                      title="Absent"
+                    >
+                      <TbCalendarX size={25} />
+                    </button>
+                    <button
+                      onClick={() => handleClickRemove(employee.eid)}
+                      className="text-slate-900 hover:text-red-500 mx-3"
+                      title="Delete"
+                    >
+                      <RiDeleteBin7Line size={25} />
+                    </button>
+                  </div>
+                  <div className="mt-2">
+                    <p className="text-gray-600 mt-2">EID: {employee.eid}</p>
+                    <p className="text-gray-600 mt-2">
+                      Total Leave: {employee.leave ? employee.leave.length : 0}
+                    </p>
+                    <p className="text-gray-600 mt-2">
+                      Total Absent:{" "}
+                      {employee.absent ? employee.absent.length : 0}
+                    </p>
+                    <p className="text-gray-600 mt-2">
+                      Schedule:{" "}
+                      {employee.schedule.map((d) => {
+                        return <span key={d}> {d}</span>;
+                      })}
+                    </p>
+                    <p className="text-gray-600 mt-2">
+                      Shift: {employee.shift}
+                    </p>
+                  </div>
+                </div>
+                <div className="md:w-[600px] h-fit border border-slate-400  shadow-lg p-2">
+                  <div className=" flex justify-between items-center">
                     <h1 className="select-none font-semibold">
                       {months[today.month()]}, {today.year()}
                     </h1>
@@ -133,19 +194,19 @@ function EmployeeInformation() {
                                   ?.leaveType === "pl"
                                   ? "bg-orange-100 text-orange-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                      ?.leaveType === "ul"
-                                  ? "bg-red-100 text-red-900 font-bold"
-                                  : employee.absent?.some(
+                                    ?.leaveType === "ul"
+                                    ? "bg-red-100 text-red-900 font-bold"
+                                    : employee.absent?.some(
                                       (absent) =>
                                         absent.startDate <=
-                                          date.format("YYYY-MM-DD") &&
+                                        date.format("YYYY-MM-DD") &&
                                         absent.endDate >=
-                                          date.format("YYYY-MM-DD")
+                                        date.format("YYYY-MM-DD")
                                     )
-                                  ? "bg-violet-100 text-violet-900 font-bold"
-                                  : employee.schedule.includes(days[date.day()])
-                                  ? "bg-green-100 text-green-900 font-bold"
-                                  : "text-gray-400",
+                                      ? "bg-violet-100 text-violet-900 font-bold"
+                                      : employee.schedule.includes(days[date.day()])
+                                        ? "bg-green-100 text-green-900 font-bold"
+                                        : "text-gray-400",
 
                                 today ? "border border-black" : "",
 
@@ -227,62 +288,7 @@ function EmployeeInformation() {
                   </Dialog>
                 </Transition>
 
-                <div className="h-fit w-96 sm:px-5 max-w-[300px] bg-white rounded-lg shadow-md p-2">
-                  <img
-                    className="w-32 h-32 rounded-full mx-auto"
-                    src={employee.profileUrl}
-                    alt="Profile"
-                  />
-                  <h2 className="text-center text-2xl font-semibold mt-2">
-                    {employee.fullName}
-                  </h2>
-                  <p className="text-center text-gray-600 mt-1">
-                    {employee.position}
-                  </p>
-                  <div className="flex justify-center mt-2">
-                    <button
-                      onClick={() =>
-                        navigate("/homepage/employeeInformation/leave")
-                      }
-                      className="text-blue-500 hover:text-blue-700 mx-3"
-                    >
-                      Leave
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate("/homepage/employeeInformation/absent")
-                      }
-                      className="text-blue-500 hover:text-blue-700 mx-3"
-                    >
-                      Absent
-                    </button>
-                    <button
-                      onClick={() => handleClickRemove(employee.eid)}
-                      className="text-red-500 hover:text-blue-700 mx-3"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                  <div className="mt-2">
-                    <p className="text-gray-600 mt-2">EID: {employee.eid}</p>
-                    <p className="text-gray-600 mt-2">
-                      Total Leave: {employee.leave ? employee.leave.length : 0}
-                    </p>
-                    <p className="text-gray-600 mt-2">
-                      Total Absent:{" "}
-                      {employee.absent ? employee.absent.length : 0}
-                    </p>
-                    <p className="text-gray-600 mt-2">
-                      Schedule:{" "}
-                      {employee.schedule.map((d) => {
-                        return <span key={d}> {d}</span>;
-                      })}
-                    </p>
-                    <p className="text-gray-600 mt-2">
-                      Shift: {employee.shift}
-                    </p>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>

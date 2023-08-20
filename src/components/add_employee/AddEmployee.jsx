@@ -27,7 +27,6 @@ function AddEmployee() {
   const [percent, setPercent] = useState(0);
   const [profilePath, setProfilePath] = useState("");
   const hiddenFileInput = useRef(null);
-
   /***
    * Function to convert time to 12-hour format
     const formatTimeTo12Hour = (time) => {
@@ -166,14 +165,14 @@ function AddEmployee() {
 
   return (
     <form
-      className="flex flex-col min-h-full p-6 bg-gray-200 flex items-center justify-center"
+      className="flex flex-col min-h-screen p-6 bg-gray-200 justify-center items-center "
       onSubmit={(e) => {
         e.preventDefault();
         handleClick();
       }}
     >
-      <div className="container max-w-screen-lg max-h-[900px] rounded-lg ">
-        <div className="container max-w-screen-lg max-h-[900px] rounded-lg">
+      <div className="container max-w-screen-lg rounded-lg ">
+        <div className="container max-w-screen-lg max-h-[900px] rounded-lg ">
           <header className="bg-slate-900 p-3 rounded-t-lg">
             <div className="ml-5 text-gray-200 mx-auto max-w-screen-lg">
               <p className="font-bold text-white text-lg">Add Employee</p>
@@ -209,22 +208,40 @@ function AddEmployee() {
                     }}
                   />
                 </div>
-
-                <div className="md:col-span-5">
+                <div className="md:col-span-5 ">
                   <label className="font-bold">Profile picture</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="w-full"
-                    ref={hiddenFileInput}
-                    onChange={handleChangeProfile}
-                  />
-                  <button onClick={handleClickUpload}>Upload</button>
-                  <p>{percent}% done</p>
-                  {percent === 100 ? (
-                    <button onClick={handleClickRemove}>Remove</button>
-                  ) : (
-                    ""
+                  <div className="flex items-center mt-1">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className=" w-15"
+                      ref={hiddenFileInput}
+                      onChange={handleChangeProfile}
+                    />
+
+                    <button
+                      onClick={handleClickUpload}
+                      className="ml-auto px-3 py-1 bg-slate-900 text-white rounded hover:bg-slate-600"
+                    >
+                      Upload
+                    </button>
+                  </div>
+                  <div className="mt-2">
+                    <div className="relative h-2 bg-gray-300 rounded-md">
+                      <div
+                        className="absolute h-full bg-slate-500 rounded-md"
+                        style={{ width: `${percent}%` }}
+                      ></div>
+                    </div>
+                    <p className="mt-1 text-sm text-slate-500">{percent}% done</p>
+                  </div>
+                  {percent === 100 && (
+                    <button
+                      onClick={handleClickRemove}
+                      className="mt-2 px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500"
+                    >
+                      Remove
+                    </button>
                   )}
                 </div>
                 <div className="md:col-span-5">
@@ -406,7 +423,7 @@ function AddEmployee() {
           </div>
         </div>
       </div>
-      <div className="flex p-2  justify-center">
+      <div className="flex flex-row gap-2 p-10 mt-0 justify-center">
         {isLoading ? (
           <button
             disabled
@@ -451,6 +468,11 @@ function AddEmployee() {
           onClose={() => {
             setFullName("");
             setEID("");
+            setShift("Morning");
+            setSchedule([]);
+            setStartTime("00:00");
+            setEndTime("12:00");
+            setPosition("");
             removeFile();
             setIsSuccessfulOpen(false);
           }}
@@ -496,6 +518,11 @@ function AddEmployee() {
                       onClick={() => {
                         setFullName("");
                         setEID("");
+                        setShift("Morning");
+                        setSchedule([]);
+                        setStartTime("00:00");
+                        setEndTime("12:00");
+                        setPosition("");
                         removeFile();
                         setIsSuccessfulOpen(false);
                       }}
@@ -514,3 +541,6 @@ function AddEmployee() {
 }
 
 export default AddEmployee;
+
+
+
