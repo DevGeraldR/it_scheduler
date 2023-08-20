@@ -5,13 +5,13 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useGlobal } from "../context/Context";
 import { useNavigate } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { AiOutlineCheckCircle } from "react-icons/ai";
 function AddAbsent() {
   const { employee, setEmployee } = useGlobal();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccessfulOpen, setIsSuccessfulOpen] = useState(false);
-  
+
 
   const [date, setDate] = useState({
     startDate: null,
@@ -46,29 +46,31 @@ function AddAbsent() {
         handleClickSubmit();
       }}
     >
-      <div className="container max-w-screen-lg">
-        <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-          <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-            <div className="text-gray-600">
-              <p className="font-medium text-lg">Add Absent</p>
-              <p>Please input all the details needed.</p>
+      <div className="container max-w-screen-sm max-h-[900px] rounded-lg ">
+        <div className="container max-w-screen-lg max-h-[900px] rounded-lg">
+          <header className="bg-slate-900 p-3 rounded-t-lg">
+            <div className="ml-5 text-gray-200 mx-auto max-w-screen-lg">
+              <p className="font-bold text-white text-lg">Add Absent</p>
+              <p>Please input all the details needed</p>
             </div>
+          </header>
+          <div className="bg-white border border-slate-400 rounded-b-lg shadow-lg p-4 px-4 md:p-8 mb-6 ">
             <div className="lg:col-span-2">
-              <div className="grid gap-4 gap-y-4 text-sm grid-cols-1 md:grid-cols-5">
-                <div className="md:col-span-5">
-                  <label>Absent Date</label>
-                  <Datepicker
-                    className="bg-black"
-                    value={date}
-                    onChange={handleChangeAbsent}
-                    onKeyDown={(e) => {
-                      e.preventDefault();
-                    }}
-                  />
-                </div>
+              <div className="grid gap-4 gap-y-4  text-sm grid-cols-1 md:grid-cols-5"></div>
+              <div className="md:col-span-5">
+                <label className="font-bold">Absent Date</label>
+                <Datepicker
+                  className="bg-black"
+                  value={date}
+                  onChange={handleChangeAbsent}
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                  }}
+                />
               </div>
             </div>
           </div>
+
         </div>
       </div>
       <Transition appear show={isSuccessfulOpen} as={Fragment}>
@@ -102,23 +104,28 @@ function AddAbsent() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel
+                  className="w-full border border-slate-400 max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all flex flex-col items-center justify-center"
+                  static
+                >
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-bold leading-6 text-gray-900 mb-2"
                   >
+                    <AiOutlineCheckCircle size={70} className="text-green-500" />
                     Success!
                   </Dialog.Title>
                   <div className="mt-2">
-                  <p className="text-sm font-medium text-gray-500"><span style={{color: "#333333"}}>Absent</span> has been added.</p>
+                    <p className="text-sm font-medium text-gray-500">
+                      Absent has been added
+                    </p>
                   </div>
 
-                  <div className="mt-4">
+                  <div className="mt-10 ">
                     <button
                       type="button"
-                      className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="hover:text-white bg-yellow-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-110 bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => {
-                        // Reformat data
                         setDate({
                           startDate: null,
                           endDate: null,
@@ -136,12 +143,12 @@ function AddAbsent() {
         </Dialog>
       </Transition>
       <div className="flex p-2 w-full justify-center gap-2">
-      <button
-            onClick={() => navigate("/homepage/employeeInformation/absent")}
-            className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          >
-            Back
-          </button>
+        <button
+          onClick={() => navigate("/homepage/employeeInformation/absent")}
+          className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+        >
+          Back
+        </button>
         {isLoading ? (
           <button
             disabled
@@ -172,21 +179,20 @@ function AddAbsent() {
         ) : (
           <button
             type="submit"
-            
+
             disabled={
               date.startDate === null && date.endDate === null ? true : false
             }
-            className={`${
-              date.startDate === null && date.endDate === null
-                ? "bg-gray-200 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500"
-                : "hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            } inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
+            className={`${date.startDate === null && date.endDate === null
+              ? " bg-gray-200 w-[120px] mt-10 md:mt-0 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500"
+              : "hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-bold  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              } inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
           >
             Add
           </button>
         )}
       </div>
-    </form>
+    </form >
   );
 }
 
