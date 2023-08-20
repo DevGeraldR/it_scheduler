@@ -62,7 +62,6 @@ function EditEmployee() {
       );
     }
   };
-  // Function to convert time to 12-hour format
 
   const handleEdit = async () => {
     setIsLoading(true);
@@ -101,36 +100,47 @@ function EditEmployee() {
   const handleClickUpload = (e) => {
     e.preventDefault();
     if (!profile) {
-     setShowConfirmDialog(true);
+      setShowConfirmDialog(true);
       return;
     }
 
-    setProfilePath(`/images/${profile.name}`);
-
     const storageRef = ref(storage, `/images/${profile.name}`);
 
-    // progress can be paused and resumed. It also exposes progress updates.
-    // Receives the storage reference and the file to upload.
-    const uploadTask = uploadBytesResumable(storageRef, profile);
+    // To check if file exist check its url
+    getDownloadURL(storageRef)
+      .then(() => {
+        // If exist
+        setShowConfirmDialog(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        // If not
+        // To be use for record
+        setProfilePath(`/images/${profile.name}`);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const percent = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        // progress can be paused and resumed. It also exposes progress updates.
+        // Receives the storage reference and the file to upload.
+        const uploadTask = uploadBytesResumable(storageRef, profile);
+
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const percent = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
+            // update progress
+            setPercent(percent);
+          },
+          (err) => console.log(err),
+          () => {
+            // download profileUrl
+            getDownloadURL(uploadTask.snapshot.ref).then((profileUrl) => {
+              setProfileUrl(profileUrl);
+            });
+          }
         );
-
-        // update progress
-        setPercent(percent);
-      },
-      (err) => console.log(err),
-      () => {
-        // download profileUrl
-        getDownloadURL(uploadTask.snapshot.ref).then((profileUrl) => {
-          setProfileUrl(profileUrl);
-        });
-      }
-    );
+      });
   };
 
   // Handles input change event and updates state
@@ -405,65 +415,68 @@ function EditEmployee() {
       </div>
       <Transition appear show={showConfirmDialog} as={Fragment}>
         <Dialog
-            as="div"
-            className="relative z-10"
-            onClose={() => {
-              setIsSuccessfulOpen(false);
-            }}
+          as="div"
+          className="relative z-10"
+          onClose={() => {
+            setIsSuccessfulOpen(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Transition.Child
-              as={Fragment}
-              enter="transition-opacity ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25" />
-            </Transition.Child>
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
 
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
-                <Transition.Child
-                  as={Fragment}
-                  enter="transition-transform ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="transition-transform ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="transition-transform ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="transition-transform ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel
+                  className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+                  static
                 >
-                  <Dialog.Panel
-                    className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
-                    static
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-red-900"
                   >
-                    <Dialog.Title
-                      as="h3"
-                      className="text-lg font-medium leading-6 text-red-900"
-                    >
-                      Error!
-                    </Dialog.Title>
-                    <div className="mt-2">
-                    <p className="text-sm font-medium text-gray-800">Please upload a photo!</p>
-                    </div>
+                    Error!
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm font-medium text-gray-800">
+                      Profile picture existed or no file selected!
+                    </p>
+                  </div>
 
-                    <div className="mt-4">
-                      <button
-                        type="button"
-                        className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => { setShowConfirmDialog(false);
-                        }}
-                      >
-                        Okay
-                      </button>
-                    </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => {
+                        setShowConfirmDialog(false);
+                      }}
+                    >
+                      Okay
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog>
-        </Transition>
+          </div>
+        </Dialog>
+      </Transition>
       <div className="flex flex-row gap-2">
         <div className="flex flex-row gap-2">
           {isLoading ? (

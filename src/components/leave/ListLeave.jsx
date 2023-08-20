@@ -3,6 +3,7 @@ import { useGlobal } from "../context/Context";
 import { db } from "../firebase/Firebase";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { Transition, Dialog } from "@headlessui/react";
+import { MdDelete } from "react-icons/md";
 
 function ListLeave({ leave, index }) {
   const { employee, setEmployee } = useGlobal();
@@ -45,11 +46,11 @@ function ListLeave({ leave, index }) {
       <td className="text-center  px-2 py-2">
         <div className="flex p-2  justify-center">
           <button
-            type="submit"
-            className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[85px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            onClick={handleClickRemove}
+            className="pl-2 font-bold text-red hover:text-red-600 transition duration-300 ease-in-out transform  hover:scale-110"
+            onClick={() => handleClickRemove()}
+            title="Delete"
           >
-            Remove
+            <MdDelete size={25} />
           </button>
           <Transition appear show={showConfirmDialog} as={React.Fragment}>
             <Dialog
@@ -72,7 +73,7 @@ function ListLeave({ leave, index }) {
                   <p>Are you sure you want to remove this Leave?</p>
                   <div className="flex justify-end mt-4 space-x-1">
                     <button
-                       className="hover:text-white mt-10 md:mt-0  bg-blue-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="hover:text-white mt-10 md:mt-0  bg-blue-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={() => setShowConfirmDialog(false)}
                     >
                       Cancel
@@ -106,10 +107,10 @@ function ListLeave({ leave, index }) {
                       </button>
                     ) : (
                       <button
-                      className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[50px]l-[110px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[50px]l-[110px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         onClick={handleConfirmRemove}
                       >
-                        Yes, remove.
+                        Remove
                       </button>
                     )}
                   </div>
