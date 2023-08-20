@@ -8,14 +8,14 @@ function Absent() {
   const navigate = useNavigate();
   return (
     <div className="flex h-full justify-center bg-gray-100 px-2">
-      <div className="my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700">
+      <div className="flex flex-col overflow-hidden my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700">
         <div className="flex flex-col md:flex-row gap-2 items-center">
           <h1 className="font-bold text-xl italic block mb-0 leading-none pb-5">
             Absent
           </h1>
         </div>
 
-        <div className="max-h-[500px] overflow-scroll">
+        <div className="overflow-scroll">
           <AbsentsList absents={employee.absent} />
         </div>
         <div className="w-screen flex justify-center p-10 gap-5">
