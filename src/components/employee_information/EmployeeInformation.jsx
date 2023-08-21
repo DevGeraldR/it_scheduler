@@ -208,10 +208,10 @@ function EmployeeInformation() {
                             <h1
                               className={cn(
                                 employee.leave[getIndex(employee, date)]
-                                  ?.leaveType === "pl"
+                                  ?.leaveType === "PLANNED"
                                   ? "bg-orange-100 text-orange-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                      ?.leaveType === "ul"
+                                      ?.leaveType === "UNPLANNED"
                                   ? "bg-red-100 text-red-900 font-bold"
                                   : employee.absent?.some(
                                       (absent) =>

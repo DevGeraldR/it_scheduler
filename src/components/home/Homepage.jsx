@@ -13,6 +13,7 @@ function Hompage() {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
   useEffect(() => {
     //Use to listen to the database and get the new
     const unsub = onSnapshot(collection(db, "employees"), (snapshot) => {

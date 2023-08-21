@@ -23,7 +23,7 @@ function NavBar() {
       </div>
       <div className="flex items-center space-x-4">
         <Link
-          to="/"
+          to="/homepage"
           className="font-bold text-white hover:text-cyan-400 transition duration-300 ease-in-out transform hover:scale-110 flex flex-col items-center"
           title="Home"
         >

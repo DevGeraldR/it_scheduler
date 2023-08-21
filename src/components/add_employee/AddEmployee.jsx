@@ -78,7 +78,7 @@ function AddEmployee() {
       absent: [],
       profileUrl: profileUrl
         ? profileUrl
-        : "https://firebasestorage.googleapis.com/v0/b/taskus-scheduler-de0cc.appspot.com/o/images%2FdefaultAvatar.jpg?alt=media&token=31843042-7bc1-4eaf-a1e5-0fdd04c2932c",
+        : "https://firebasestorage.googleapis.com/v0/b/it-scheduler-fcf53.appspot.com/o/images%2FdefaultAvatar.jpg?alt=media&token=d9fddc6c-14ea-463c-836b-c643c14b05bd",
       profilePath: profilePath ? profilePath : "/images/defaultAvatar.jpg",
     });
 
@@ -126,6 +126,7 @@ function AddEmployee() {
             // download profileUrl
             getDownloadURL(uploadTask.snapshot.ref).then((profileUrl) => {
               setProfileUrl(profileUrl);
+              console.log(profileUrl);
             });
           }
         );
