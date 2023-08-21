@@ -42,7 +42,7 @@ function EmployeeInformation() {
       // Delete the picture
       if (
         employee.profileUrl &&
-        employee.profilePath !== "/images/defaultAvatar.png"
+        employee.profilePath !== "/images/defaultAvatar.jpg"
       ) {
         // Delete the file
         deleteObject(profileRef);
@@ -66,10 +66,21 @@ function EmployeeInformation() {
     return index;
   };
 
+  // Function to convert time to 12-hour format
+  const formatTimeTo12Hour = (time) => {
+    const [hours, minutes] = time.split(":");
+    const timeObject = new Date(0, 0, 0, hours, minutes);
+    return timeObject.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  };
+
   return (
     <div className="flex flex-col min-h-full p-6 bg-gray-100 flex items-center justify-center">
-      <div className="container max-w-screen-lg max-h-[900px] rounded-lg ">
-        <div className="container max-w-screen-lg max-h-[900px] rounded-lg">
+      <div className="container max-w-screen-lg rounded-lg ">
+        <div className="container max-w-screen-lg rounded-lg">
           <header className="bg-slate-900 p-3 rounded-t-lg">
             <div className="ml-5 text-gray-200 mx-auto max-w-screen-lg">
               <p className="font-bold text-white text-lg">Full Details</p>
@@ -79,9 +90,9 @@ function EmployeeInformation() {
           <div className="bg-white border border-slate-400 rounded-b-lg shadow-lg p-4 px-4 md:p-8 ">
             <div className="flex gap-5 items-center lg:divide-x sm:w-1/2">
               <div className="flex gap-10 items-center lg:flex-row flex-col">
-                <div className=" h-fit w-96 sm:px-5 max-w-[300px] bg-white  p-2">
+                <div className="w-96 sm:px-5 max-w-[300px]">
                   <img
-                    className="border border-slate-200 w-32 h-32 rounded-full mx-auto"
+                    className="border border-slate-200 w-28 h-28 rounded-full mx-auto"
                     src={employee.profileUrl}
                     alt="Profile"
                   />
@@ -136,9 +147,15 @@ function EmployeeInformation() {
                     <p className="text-gray-600 mt-2">
                       Shift: {employee.shift}
                     </p>
+                    <p className="text-gray-600 mt-2">
+                      Start Time: {formatTimeTo12Hour(employee.startTime)}
+                    </p>
+                    <p className="text-gray-600 mt-2">
+                      End Time: {formatTimeTo12Hour(employee.endTime)}
+                    </p>
                   </div>
                 </div>
-                <div className="md:w-[600px] h-fit border border-slate-400  shadow-lg p-2">
+                <div className="md:w-[600px] h-fit border border-slate-400 p-2">
                   <div className=" flex justify-between items-center">
                     <h1 className="select-none font-semibold">
                       {months[today.month()]}, {today.year()}
@@ -194,19 +211,19 @@ function EmployeeInformation() {
                                   ?.leaveType === "pl"
                                   ? "bg-orange-100 text-orange-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                    ?.leaveType === "ul"
-                                    ? "bg-red-100 text-red-900 font-bold"
-                                    : employee.absent?.some(
+                                      ?.leaveType === "ul"
+                                  ? "bg-red-100 text-red-900 font-bold"
+                                  : employee.absent?.some(
                                       (absent) =>
                                         absent.startDate <=
-                                        date.format("YYYY-MM-DD") &&
+                                          date.format("YYYY-MM-DD") &&
                                         absent.endDate >=
-                                        date.format("YYYY-MM-DD")
+                                          date.format("YYYY-MM-DD")
                                     )
-                                      ? "bg-violet-100 text-violet-900 font-bold"
-                                      : employee.schedule.includes(days[date.day()])
-                                        ? "bg-green-100 text-green-900 font-bold"
-                                        : "text-gray-400",
+                                  ? "bg-violet-100 text-violet-900 font-bold"
+                                  : employee.schedule.includes(days[date.day()])
+                                  ? "bg-green-100 text-green-900 font-bold"
+                                  : "text-gray-400",
 
                                 today ? "border border-black" : "",
 

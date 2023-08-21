@@ -182,8 +182,8 @@ function EditEmployee() {
         handleEdit();
       }}
     >
-      <div className="container max-w-screen-lg max-h-[900px] rounded-lg ">
-        <div className="container max-w-screen-lg max-h-[900px] rounded-lg">
+      <div className="container max-w-screen-lg rounded-lg ">
+        <div className="container max-w-screen-lg rounded-lg">
           <header className="bg-slate-900 p-3 rounded-t-lg">
             <div className="ml-5 text-gray-200 mx-auto max-w-screen-lg">
               <p className="font-bold text-white text-lg">Edit Employee</p>
@@ -207,7 +207,7 @@ function EditEmployee() {
                 />
               </div>
               <div className="md:col-span-5 ">
-                <label className="font-bold">Profile picture</label>
+                <label className="font-bold">New profile picture</label>
                 <div className="flex items-center mt-1">
                   <input
                     type="file"

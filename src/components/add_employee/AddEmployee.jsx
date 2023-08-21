@@ -29,19 +29,6 @@ function AddEmployee() {
   const hiddenFileInput = useRef(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
-  /***
-   * Function to convert time to 12-hour format
-    const formatTimeTo12Hour = (time) => {
-    const [hours, minutes] = time.split(":");
-    const timeObject = new Date(0, 0, 0, hours, minutes);
-    return timeObject.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-  };
-   */
-
   // Event handler for when the user changes the time
   const handleStartTimeChange = (event) => {
     setStartTime(event.target.value);
@@ -91,8 +78,8 @@ function AddEmployee() {
       absent: [],
       profileUrl: profileUrl
         ? profileUrl
-        : "https://firebasestorage.googleapis.com/v0/b/taskus-scheduler-de0cc.appspot.com/o/images%2FdefaultAvatar.png?alt=media&token=005ec2b7-0e94-4a89-b6c9-f963d8ab05d9",
-      profilePath: profilePath ? profilePath : "/images/defaultAvatar.png",
+        : "https://firebasestorage.googleapis.com/v0/b/taskus-scheduler-de0cc.appspot.com/o/images%2FdefaultAvatar.jpg?alt=media&token=31843042-7bc1-4eaf-a1e5-0fdd04c2932c",
+      profilePath: profilePath ? profilePath : "/images/defaultAvatar.jpg",
     });
 
     setIsLoading(false);

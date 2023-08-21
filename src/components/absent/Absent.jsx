@@ -18,7 +18,7 @@ function Absent() {
         <div className="overflow-scroll">
           <AbsentsList absents={employee.absent} />
         </div>
-        <div className="w-screen flex justify-center p-10 gap-2">
+        <div className="w-full flex justify-center p-10 gap-2">
           <button
             onClick={() => navigate("/homepage/employeeInformation/")}
             className="hover:text-white mt-10 md:mt-0  bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"

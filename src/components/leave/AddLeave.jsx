@@ -46,8 +46,8 @@ function AddLeave() {
         handleClickSubmit();
       }}
     >
-      <div className="container max-w-screen-sm max-h-[900px] rounded-lg ">
-        <div className="container max-w-screen-lg max-h-[900px] rounded-lg">
+      <div className="container max-w-screen-sm rounded-lg ">
+        <div className="container max-w-screen-lg rounded-lg">
           <header className="bg-slate-900 p-3 rounded-t-lg">
             <div className="ml-5 text-gray-200 mx-auto max-w-screen-lg">
               <p className="font-bold text-white text-lg">Add Leave</p>
@@ -141,7 +141,10 @@ function AddLeave() {
                       as="h3"
                       className="text-lg font-bold leading-6 text-gray-900 mb-2"
                     >
-                      <AiOutlineCheckCircle size={70} className="text-green-500" />
+                      <AiOutlineCheckCircle
+                        size={70}
+                        className="text-green-500"
+                      />
                       Success!
                     </Dialog.Title>
                     <div className="mt-2">
@@ -212,10 +215,11 @@ function AddLeave() {
               disabled={
                 date.startDate === null && date.endDate === null ? true : false
               }
-              className={`${date.startDate === null && date.endDate === null
-                ? " bg-gray-200 w-[120px] mt-10 md:mt-0 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500"
-                : "hover:text-white mt-10 md:mt-0   bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                } inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
+              className={`${
+                date.startDate === null && date.endDate === null
+                  ? " bg-gray-200 w-[120px] mt-10 md:mt-0 text-gray-900 hover:bg-gray-300 focus-visible:ring-gray-500"
+                  : "hover:text-white mt-10 md:mt-0   bg-yellow-300 w-[120px] rounded-md transition duration-300 ease-in-out transform hover:scale-110  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              } inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2`}
             >
               Add
             </button>

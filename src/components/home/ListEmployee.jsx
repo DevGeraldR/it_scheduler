@@ -30,7 +30,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
       // Delete the picture
       if (
         employee.profileUrl &&
-        employee.profilePath !== "/images/defaultAvatar.png"
+        employee.profilePath !== "/images/defaultAvatar.jpg"
       ) {
         // Delete the file
         deleteObject(profileRef);
@@ -82,7 +82,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
       </td>
       <td className="text-center py-2 border border-slate-400">
         <button
-          className="pr-2 mfont-bold text-blue hover:text-blue-600 transition duration-300 ease-in-out transform  hover:scale-110"
+          className="pr-2 mfont-bold text-blue hover:text-blue-500 transition duration-300 ease-in-out transform  hover:scale-110"
           onClick={() => {
             setEmployee(employee);
             navigate("/homepage/employeeInformation");
@@ -92,7 +92,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
           <PiFileTextFill size={25} />
         </button>
         <button
-          className="px-1 font-bold text-green hover:text-green-600 transition duration-300 ease-in-out transform  hover:scale-110"
+          className="px-1 font-bold text-green hover:text-yellow-500 transition duration-300 ease-in-out transform  hover:scale-110"
           onClick={handleClickEdit}
           title="Edit"
         >
@@ -127,7 +127,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
               <p>Are you sure you want to remove this employee?</p>
               <div className="flex justify-end mt-4 space-x-1 ">
                 <button
-                   className="hover:text-white mt-10 md:mt-0  bg-blue-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  className="hover:text-white mt-10 md:mt-0  bg-blue-300 w-[80px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                   onClick={() => setShowConfirmDialog(false)}
                 >
                   Cancel
@@ -161,7 +161,7 @@ function ListEmployee({ employee, index, onRemoveEmployee }) {
                   </button>
                 ) : (
                   <button
-                  className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    className="hover:text-white mt-10 md:mt-0  bg-red-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100  bg-gray-100 px-4 py-2 text-sm font-medium  text-black-900 hover:bg-red-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     onClick={() => handleConfirmRemove(employee.eid)}
                   >
                     Remove
