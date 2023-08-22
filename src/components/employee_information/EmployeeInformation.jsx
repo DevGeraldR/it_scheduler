@@ -208,21 +208,21 @@ function EmployeeInformation() {
                               className={cn(
                                 employee.leave[getIndex(employee, date)]
                                   ?.leaveType === "PLANNED"
-                                  ? "bg-blue-300 text-blue-900 font-bold"
+                                  ? "bg-blue-400 text-blue-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                      ?.leaveType === "UNPLANNED"
-                                  ? "bg-red-300 text-red-900 font-bold"
-                                  : employee.absent?.some(
+                                    ?.leaveType === "UNPLANNED"
+                                    ? "bg-red-400 text-red-900 font-bold"
+                                    : employee.absent?.some(
                                       (absent) =>
                                         absent.startDate <=
-                                          date.format("YYYY-MM-DD") &&
+                                        date.format("YYYY-MM-DD") &&
                                         absent.endDate >=
-                                          date.format("YYYY-MM-DD")
+                                        date.format("YYYY-MM-DD")
                                     )
-                                  ? "bg-orange-300 text-orange-900 font-bold"
-                                  : employee.schedule.includes(days[date.day()])
-                                  ? "bg-green-300 text-green-900 font-bold"
-                                  : "text-black",
+                                      ? "bg-orange-400 text-orange-900 font-bold"
+                                      : employee.schedule.includes(days[date.day()])
+                                        ? "bg-green-400 text-green-900 font-bold"
+                                        : "text-black",
 
                                 today ? "border border-black" : "",
 

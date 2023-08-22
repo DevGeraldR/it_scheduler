@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ListEmployee from "./ListEmployee";
-import { RiSortAsc } from "react-icons/ri";
-import { HiSortDescending } from "react-icons/hi";
+import { BiSortZA } from "react-icons/bi";
+import { BiSortAZ } from "react-icons/bi";
 import { TbArrowsSort } from "react-icons/tb";
 
 function EmployeesList({ employees }) {
@@ -36,12 +36,12 @@ function EmployeesList({ employees }) {
               >
                 {sorting === "fullName" ? (
                   ascending ? (
-                    <RiSortAsc />
+                    <BiSortZA title="Z-A" />
                   ) : (
-                    <HiSortDescending />
+                    <BiSortAZ title="A-Z" />
                   )
                 ) : (
-                  <TbArrowsSort />
+                  <TbArrowsSort title="Sort" />
                 )}
               </button>
             </div>
@@ -68,12 +68,12 @@ function EmployeesList({ employees }) {
               >
                 {sorting === "position" ? (
                   ascending ? (
-                    <RiSortAsc />
+                    <BiSortZA title="Z-A" />
                   ) : (
-                    <HiSortDescending />
+                    <BiSortAZ title="A-Z" />
                   )
                 ) : (
-                  <TbArrowsSort />
+                  <TbArrowsSort title="Sort" />
                 )}
               </button>
             </div>
@@ -102,8 +102,8 @@ function EmployeesList({ employees }) {
                 ? 1
                 : -1
               : a[sortBy] > b[sortBy]
-              ? -1
-              : 1
+                ? -1
+                : 1
           )
           .map((employee, index) => {
             return (

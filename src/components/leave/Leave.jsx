@@ -10,7 +10,7 @@ function Leave() {
     <div className="flex h-full bg-gray-200 justify-center px-2">
       <div className="flex flex-col overflow-hidden my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700 border border-slate-400">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <h1 className="font-bold text-xl italic block mb-0 leading-none pb-5">
+          <h1 className="font-bold text-xl  block mb-0 leading-none pb-5">
             Leave
           </h1>
         </div>
