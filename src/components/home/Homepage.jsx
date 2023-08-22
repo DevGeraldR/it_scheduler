@@ -13,6 +13,7 @@ function Hompage() {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const [searchCategory, setSearchCategory] = useState("name");
 
   useEffect(() => {
     //Use to listen to the database and get the new
@@ -31,7 +32,14 @@ function Hompage() {
   const searchFilterFunction = (text) => {
     if (text) {
       const newData = employees.filter(function (item) {
-        const itemData = item.eid ? item.eid : "";
+        if (searchCategory === "name") {
+          // Searching with name
+          const itemData = item.fullName;
+          const textData = text.toLowerCase();
+          return itemData.toLowerCase().indexOf(textData) > -1;
+        }
+        // Searching with eid
+        const itemData = item.eid;
         const textData = text;
         return itemData.indexOf(textData) > -1;
       });
@@ -62,12 +70,23 @@ function Hompage() {
                     type="search"
                     value={search}
                     className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
-                    placeholder="Search EID"
+                    placeholder="Search name of eid"
                     aria-label="Search"
                     aria-describedby="button-addon2"
                     onChange={(e) => searchFilterFunction(e.target.value)}
                   />
                 </div>
+                <select
+                  id="shift"
+                  type="combobox"
+                  onChange={(e) => {
+                    setSearchCategory(e.target.value);
+                  }}
+                  className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+                >
+                  <option value="name">Name</option>
+                  <option value="eid">Eid</option>
+                </select>
               </div>{" "}
               <button
                 className="font-bold text-slate-900 hover:text-yellow-400 transition duration-300 ease-in-out transform  hover:scale-110 flex items-center"

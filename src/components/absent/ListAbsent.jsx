@@ -32,7 +32,7 @@ function ListAbsent({ absent, index }) {
         item.endDate !== date.endDate ||
         item.leaveType !== date.leaveType
     );
-    
+
     setEmployee({ ...employee, absent: updatedAbsentist });
     setIsLoading(false);
     setShowConfirmDialog(false);
@@ -40,9 +40,8 @@ function ListAbsent({ absent, index }) {
 
   return (
     <tr key={index} className="bg-white border-b border-b-black ">
-      <td className="text-center px-2 py-2">{index + 1}</td>
-      <td className=" px-2 py-2">{absent.startDate}</td>
-      <td className=" px-2 py-2">{absent.endDate}</td>
+      <td className="text-center px-2 py-2">{absent.startDate}</td>
+      <td className="text-center px-2 py-2">{absent.endDate}</td>
       <td className="text-center  px-2 py-2">
         <button
           className="pl-2 font-bold text-red hover:text-red-600 transition duration-300 ease-in-out transform  hover:scale-110"
@@ -113,7 +112,7 @@ function ListAbsent({ absent, index }) {
                     ) : (
                       <button
                         className="hover:text-white bg-red-400 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100 bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => handleConfirmRemove(employee.eid)}     
+                        onClick={() => handleConfirmRemove(employee.eid)}
                       >
                         Remove
                       </button>
@@ -124,7 +123,6 @@ function ListAbsent({ absent, index }) {
             </div>
           </Dialog>
         </Transition>
-        
       </td>
     </tr>
   );

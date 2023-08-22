@@ -1,24 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import ListAbsent from "./ListAbsent";
+import { RiSortAsc } from "react-icons/ri";
+import { HiSortDescending } from "react-icons/hi";
+import { TbArrowsSort } from "react-icons/tb";
 
 function AbsentsList({ absents }) {
+  const [sortBy, setSortBy] = useState("");
+  const [ascending, setAscending] = useState(true);
+  const [sorting, setSorting] = useState("");
+
   return (
     <table className="table w-full max-h-[500px]">
       <thead>
-        <tr>
-          <th className="text-center px-2 py-2 bg-black text-white sticky top-0">
-            #
+        <tr className="bg-black text-white sticky top-0 z-10">
+          <th className="px-2 py-2">
+            <div className="flex justify-between">
+              <div></div> {/**For design */}
+              <label
+                type="button"
+                htmlFor="sortingStartDate"
+                className="cursor-pointer hover:text-yellow-400"
+              >
+                Start Date
+              </label>
+              <button
+                type="button"
+                id="sortingStartDate"
+                className="hover:text-yellow-400"
+                onClick={() => {
+                  setSortBy("startDate");
+                  setSorting("startDate");
+                  setAscending(!ascending);
+                }}
+              >
+                {sorting === "startDate" ? (
+                  ascending ? (
+                    <RiSortAsc />
+                  ) : (
+                    <HiSortDescending />
+                  )
+                ) : (
+                  <TbArrowsSort />
+                )}
+              </button>
+            </div>
           </th>
-          <th className="text-left px-2 py-2 bg-black text-white sticky top-0">
-            Start Date
-          </th>
-          <th className="text-left px-2 py-2 bg-black text-white sticky top-0">
-            End Date
-          </th>
+          <th className="text-center px-2 py-2">End Date</th>
 
-          <th className="text-center px-2 py-2 bg-black text-white sticky top-0">
-            Actions
-          </th>
+          <th className="text-center px-2 py-2">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -31,9 +60,19 @@ function AbsentsList({ absents }) {
         ) : (
           ""
         )}
-        {absents.map((absent, index) => {
-          return <ListAbsent key={index} absent={absent} index={index} />;
-        })}
+        {absents
+          .sort((a, b) =>
+            ascending
+              ? a[sortBy] > b[sortBy]
+                ? 1
+                : -1
+              : a[sortBy] > b[sortBy]
+              ? -1
+              : 1
+          )
+          .map((absent, index) => {
+            return <ListAbsent key={index} absent={absent} index={index} />;
+          })}
       </tbody>
     </table>
   );

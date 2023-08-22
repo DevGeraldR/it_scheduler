@@ -35,19 +35,18 @@ function Login() {
           handleClick();
         }}
       >
-        <div className="Taskus_logoname w-[600px] h-[90px] bg-slate-900 flex items-center rounded-xl shadow-lg border border-slate-400">
+        <div className="Taskus_logoname w-[260px] h-[60px]  md:w-[600px] md:h-[90px] bg-slate-900 flex items-center rounded-xl shadow-lg border border-slate-400">
           <img
             src={Taskus_logoname}
-            width="300"
-            height="80px"
+            width="45%"
+            height="45%"
             alt="Taskus Logo"
             className="ml-4"
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <br />
           <input
-            className="w-[450px] px-3 py-2 rounded-md border border-slate-400"
+            className="w-[240px] md:w-[450px] px-3 py-2 rounded-md border border-slate-400 mt-5 md:mt-10"
             type="email"
             placeholder="Email"
             id="email"
@@ -57,7 +56,7 @@ function Login() {
         </div>
         <div className="flex flex-col space-y-2">
           <input
-            className="w-[450px] px-3 py-2 rounded-md border border-slate-400 "
+            className="w-[240px] md:w-[450px] px-3 py-2 rounded-md border border-slate-400 mb-10 md:mb-28"
             type="password"
             placeholder="Password"
             id="password"
@@ -65,7 +64,6 @@ function Login() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </div>
-        <br /> <br /> <br /> <br />
         {isLoading ? (
           <button
             disabled

@@ -21,7 +21,7 @@ function AddEmployee() {
   const [startTime, setStartTime] = useState("00:00");
   const [endTime, setEndTime] = useState("12:00");
   const [isLoading, setIsLoading] = useState(false);
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState("IT Specialist");
   const [profile, setProfile] = useState(null);
   const [profileUrl, setProfileUrl] = useState("");
   // progress
@@ -246,20 +246,24 @@ function AddEmployee() {
                 )}
               </div>
               <div className="md:col-span-5">
-                <label className="font-bold"> Position</label>
-                <input
-                  type="text"
-                  required
-                  className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  placeholder="Position"
+                <label className="font-bold">Position</label>{" "}
+                <select
+                  id="position"
                   value={position}
+                  type="combobox"
+                  className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   onChange={(e) => {
                     setPosition(e.target.value);
                   }}
-                />
+                >
+                  <option value="IT Specialist">IT Specialist</option>
+                  <option value="Senior IT Specialist">
+                    Senior IT Specialist
+                  </option>
+                </select>
               </div>
               <div className="md:col-span-5">
-                <label className="font-bold">Select Shift</label>{" "}
+                <label className="font-bold">Shift</label>{" "}
                 <select
                   id="shift"
                   value={shift}
@@ -424,73 +428,73 @@ function AddEmployee() {
         </div>
       </div>
       <Transition appear show={showConfirmDialog} as={Fragment}>
-  <Dialog
-    as="div"
-    className="relative z-10"
-    onClose={() => {
-      setShowConfirmDialog(false);
-    }}
-  >
-    <Transition.Child
-      as={Fragment}
-      enter="ease-out duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="ease-in duration-200"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <div className="fixed inset-0 bg-black bg-opacity-25" />
-    </Transition.Child>
-
-    <div className="fixed inset-0 overflow-y-auto">
-      <div className="flex min-h-full items-center justify-center p-4 text-center">
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => {
+            setShowConfirmDialog(false);
+          }}
         >
-          <Dialog.Panel
-            className="w-full border border-slate-400 max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all flex flex-col items-center justify-center"
-            static
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Dialog.Title
-              as="h3"
-              className="text-lg font-bold leading-6 text-gray-900 mb-2"
-            >
-              <AiOutlineCloseCircle
-                    size={70}
-                    className="text-red-500 mb-2 mt-2"
-                  />
-              Error!
-            </Dialog.Title>
-            <div className="mt-2">
-              <p className="text-sm font-medium text-gray-500">
-                Please upload a photo!
-              </p>
-            </div>
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
 
-            <div className="mt-10 ">
-              <button
-                type="button"
-                className="hover:text-white bg-yellow-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100 bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                onClick={() => {
-                setShowConfirmDialog(false);
-                }}
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
               >
-                Okay
-              </button>
+                <Dialog.Panel
+                  className="w-full border border-slate-400 max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all flex flex-col items-center justify-center"
+                  static
+                >
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-bold leading-6 text-gray-900 mb-2"
+                  >
+                    <AiOutlineCloseCircle
+                      size={70}
+                      className="text-red-500 mb-2 mt-2"
+                    />
+                    Error!
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm font-medium text-gray-500">
+                      Please upload a photo!
+                    </p>
+                  </div>
+
+                  <div className="mt-10 ">
+                    <button
+                      type="button"
+                      className="hover:text-white bg-yellow-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100 bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => {
+                        setShowConfirmDialog(false);
+                      }}
+                    >
+                      Okay
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog.Panel>
-        </Transition.Child>
-      </div>
-    </div>
-  </Dialog>
-</Transition>
+          </div>
+        </Dialog>
+      </Transition>
 
       <div className="flex p-2  justify-center">
         {isLoading ? (
