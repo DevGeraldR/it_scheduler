@@ -85,8 +85,6 @@ function EditEmployee() {
       position: position,
     };
 
-
-
     await updateDoc(employeeRef, updatedData);
 
     setEmployee({
@@ -252,10 +250,14 @@ function EditEmployee() {
                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                   onChange={handlePositionChange}
                 >
-                  <option value="IT SUPPORT SPECIALIST">IT Support Specialist</option>
-                  <option value="SENIOR IT SUPPORT SPECIALIST">Senior IT Support Specialist</option>
-                  <option value="IT SUPERVISOR">IT Supervisor</option>
-                  <option value="IT MANAGER">IT Manager</option>
+                  <option value="IT Support Specialist">
+                    IT Support Specialist
+                  </option>
+                  <option value="Senior IT Support Specialist">
+                    Senior IT Support Specialist
+                  </option>
+                  <option value="IT Supervisor">IT Supervisor</option>
+                  <option value="IT Manager">IT Manager</option>
                 </select>
               </div>
               <div className="md:col-span-5">

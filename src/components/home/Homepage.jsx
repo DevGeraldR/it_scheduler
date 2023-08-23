@@ -60,36 +60,34 @@ function Hompage() {
       <div className="flex flex-col overflow-hidden my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700 border border-slate-400">
         {!isLoading ? (
           <>
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="flex flex-row gap-2 items-center">
-
-
-                <div className="relative flex flex-wrap items-center">
-                  <MdPersonSearch size={38} className="text-slate-900 border border-solid border-gray-300 rounded-l" />
+            <div className="flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
+              <div className="flex gap-2 items-center flex-col md:flex-row">
+                <div className="font-bold text-slate-900 block mb-0 leading-none">
+                  <MdPersonSearch size={50} />
+                </div>
+                <div className="relative flex flex-wrap items-stretch">
                   <input
                     type="search"
                     value={search}
-                    className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-r transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+                    className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
                     placeholder="Search"
                     aria-label="Search"
                     aria-describedby="button-addon2"
                     onChange={(e) => searchFilterFunction(e.target.value)}
                   />
-                </div>
-                <div className="relative flex flex-wrap items-stretch">
                   <select
                     id="shift"
                     type="combobox"
                     onChange={(e) => {
                       setSearchCategory(e.target.value);
                     }}
-                    className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
+                    className="form-control relative flex-auto min-w-0 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-black focus:outline-none"
                   >
                     <option value="name">Name</option>
                     <option value="eid">EID</option>
                   </select>
                 </div>
-              </div>{" "}
+              </div>
               <button
                 className="font-bold text-slate-900 hover:text-yellow-400 transition duration-300 ease-in-out transform  hover:scale-110 flex items-center"
                 onClick={handleClickAdd}
@@ -98,7 +96,7 @@ function Hompage() {
               >
                 <HiDocumentPlus size={36} />
               </button>
-            </div>{" "}
+            </div>
             <br />
             <div className="overflow-scroll">
               <EmplooyeesList employees={searchList} />
