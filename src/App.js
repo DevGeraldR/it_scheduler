@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./components/context/Context";
 import { PrivateRoute } from "./components/route/PrivateRoute";
 import Login from "./components/authentication/Login";
-import Layout from "./components/home/Layout";
+import Layout from "./components/utils/Layout";
 import Homepage from "./components/home/Homepage";
 import AddEmployee from "./components/add_employee/AddEmployee";
 import EmployeeInformation from "./components/employee_information/EmployeeInformation";

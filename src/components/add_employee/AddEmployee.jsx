@@ -167,7 +167,7 @@ function AddEmployee() {
 
   return (
     <form
-      className="flex flex-col min-h-full p-6 bg-gray-100 flex items-center"
+      className="flex flex-col min-h-full p-6 flex items-center"
       onSubmit={(e) => {
         e.preventDefault();
         handleClick();
@@ -474,7 +474,7 @@ function AddEmployee() {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm font-medium text-gray-500">
-                      Please upload a photo!
+                      File existed or no file selected!
                     </p>
                   </div>
 

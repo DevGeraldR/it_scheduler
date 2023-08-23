@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ListLeave from "./ListLeave";
-import { RiSortAsc } from "react-icons/ri";
-import { HiSortDescending } from "react-icons/hi";
+import { BiSortZA } from "react-icons/bi";
+import { BiSortAZ } from "react-icons/bi";
 import { TbArrowsSort } from "react-icons/tb";
 
 function LeaveList({ leaves }) {
@@ -34,12 +34,12 @@ function LeaveList({ leaves }) {
               >
                 {sorting === "startDate" ? (
                   ascending ? (
-                    <RiSortAsc />
+                    <BiSortZA title="Z-A" />
                   ) : (
-                    <HiSortDescending />
+                    <BiSortAZ title="A-Z" />
                   )
                 ) : (
-                  <TbArrowsSort />
+                  <TbArrowsSort title="Sort" />
                 )}
               </button>
             </div>
@@ -67,12 +67,12 @@ function LeaveList({ leaves }) {
               >
                 {sorting === "leaveType" ? (
                   ascending ? (
-                    <RiSortAsc />
+                    <BiSortZA title="Z-A" />
                   ) : (
-                    <HiSortDescending />
+                    <BiSortAZ title="A-Z" />
                   )
                 ) : (
-                  <TbArrowsSort />
+                  <TbArrowsSort title="Sort" />
                 )}
               </button>
             </div>

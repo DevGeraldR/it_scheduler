@@ -179,7 +179,7 @@ function EditEmployee() {
 
   return (
     <form
-      className="flex flex-col min-h-full p-6 bg-gray-200 flex items-center justify-center"
+      className="flex flex-col min-h-full p-6 flex items-center justify-center"
       onSubmit={(e) => {
         e.preventDefault();
         handleEdit();
@@ -589,7 +589,7 @@ function EditEmployee() {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm font-medium text-gray-500">
-                        Please upload a photo!
+                        File existed or no file selected!
                       </p>
                     </div>
 

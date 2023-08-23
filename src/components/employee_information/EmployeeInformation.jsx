@@ -79,7 +79,7 @@ function EmployeeInformation() {
   };
 
   return (
-    <div className="flex flex-col min-h-full p-6 bg-gray-100 flex items-center justify-center">
+    <div className="flex flex-col min-h-full p-6 flex items-center justify-center">
       <div className="container max-w-screen-lg rounded-lg ">
         <div className="container max-w-screen-lg rounded-lg">
           <header className="bg-slate-900 p-3 rounded-t-lg">
@@ -210,19 +210,19 @@ function EmployeeInformation() {
                                   ?.leaveType === "PLANNED"
                                   ? "bg-blue-400 text-blue-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                    ?.leaveType === "UNPLANNED"
-                                    ? "bg-red-400 text-red-900 font-bold"
-                                    : employee.absent?.some(
+                                      ?.leaveType === "UNPLANNED"
+                                  ? "bg-red-400 text-red-900 font-bold"
+                                  : employee.absent?.some(
                                       (absent) =>
                                         absent.startDate <=
-                                        date.format("YYYY-MM-DD") &&
+                                          date.format("YYYY-MM-DD") &&
                                         absent.endDate >=
-                                        date.format("YYYY-MM-DD")
+                                          date.format("YYYY-MM-DD")
                                     )
-                                      ? "bg-orange-400 text-orange-900 font-bold"
-                                      : employee.schedule.includes(days[date.day()])
-                                        ? "bg-green-400 text-green-900 font-bold"
-                                        : "text-black",
+                                  ? "bg-orange-400 text-orange-900 font-bold"
+                                  : employee.schedule.includes(days[date.day()])
+                                  ? "bg-green-400 text-green-900 font-bold"
+                                  : "text-black",
 
                                 today ? "border border-black" : "",
 

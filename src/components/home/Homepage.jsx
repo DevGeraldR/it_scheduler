@@ -56,7 +56,7 @@ function Hompage() {
   };
 
   return (
-    <div className="flex h-full bg-gray-200 justify-center px-2">
+    <div className="flex h-full justify-center px-2">
       <div className="flex flex-col overflow-hidden my-5 w-full bg-white p-5 rounded-xl shadow-lg text-gray-700 border border-slate-400">
         {!isLoading ? (
           <>

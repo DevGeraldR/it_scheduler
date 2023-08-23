@@ -39,7 +39,7 @@ function AddAbsent() {
 
   return (
     <form
-      className="flex flex-col min-h-full p-6 bg-gray-100 flex items-center"
+      className="flex flex-col min-h-full p-6 flex items-center"
       onSubmit={(e) => {
         e.preventDefault();
         handleClickSubmit();
@@ -61,6 +61,7 @@ function AddAbsent() {
                 <Datepicker
                   className="bg-black"
                   value={date}
+                  popoverDirection="down"
                   onChange={handleChangeAbsent}
                   onKeyDown={(e) => {
                     e.preventDefault();
@@ -72,77 +73,77 @@ function AddAbsent() {
         </div>
       </div>
       <Transition appear show={isSuccessfulOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-10"
-            onClose={() => {
-              setIsSuccessfulOpen(false);
-            }}
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => {
+            setIsSuccessfulOpen(false);
+          }}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Transition.Child
-              as={Fragment}
-              enter="transition-opacity ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="transition-opacity ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25" />
-            </Transition.Child>
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
 
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center p-4 text-center">
-                <Transition.Child
-                  as={Fragment}
-                  enter="transition-transform ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="transition-transform ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="transition-transform ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="transition-transform ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel
+                  className="w-full border border-slate-400 max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all flex flex-col items-center justify-center"
+                  static
                 >
-                  <Dialog.Panel
-                    className="w-full border border-slate-400 max-w-sm transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all flex flex-col items-center justify-center"
-                    static
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-bold leading-6 text-gray-900 mb-2"
                   >
-                    <Dialog.Title
-                      as="h3"
-                      className="text-lg font-bold leading-6 text-gray-900 mb-2"
-                    >
-                      <AiOutlineCheckCircle
-                        size={70}
-                        className="text-green-500"
-                      />
-                      Success!
-                    </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm font-medium text-gray-500">
-                        Absent has been added.
-                      </p>
-                    </div>
+                    <AiOutlineCheckCircle
+                      size={70}
+                      className="text-green-500"
+                    />
+                    Success!
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm font-medium text-gray-500">
+                      Absent has been added.
+                    </p>
+                  </div>
 
-                    <div className="mt-10">
-                      <button
-                        type="button"
-                        className="hover:text-white bg-yellow-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100 bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        onClick={() => {
-                          setDate({
-                            startDate: null,
-                            endDate: null,
-                          });
-                          setIsSuccessfulOpen(false);
-                        }}
-                      >
-                        Okay
-                      </button>
-                    </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
+                  <div className="mt-10">
+                    <button
+                      type="button"
+                      className="hover:text-white bg-yellow-300 w-[100px] rounded-md transition duration-300 ease-in-out transform hover:scale-100 bg-gray-100 px-4 py-2 text-sm font-medium text-black-900 hover:bg-yellow-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => {
+                        setDate({
+                          startDate: null,
+                          endDate: null,
+                        });
+                        setIsSuccessfulOpen(false);
+                      }}
+                    >
+                      Okay
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog>
-        </Transition>
+          </div>
+        </Dialog>
+      </Transition>
 
       <div className="flex p-2 w-full justify-center gap-2">
         <button
