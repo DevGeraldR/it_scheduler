@@ -33,7 +33,7 @@ function AbsentsList({ absents }) {
                   setAscending(!ascending);
                 }}
               >
-                {sorting === "sortingStartDate" ? (
+                {sorting === "startDate" ? (
                   ascending ? (
                     <BiSortZA title="Z-A" />
                   ) : (
