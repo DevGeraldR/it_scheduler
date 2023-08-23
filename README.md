@@ -1,3 +1,12 @@
+# About 
+An employee scheduler system, often referred to as an employee scheduling software or workforce scheduling system, is a digital tool or software application used by organizations to efficiently and effectively manage and create work schedules for their employees. These systems are especially valuable for businesses with a large and diverse workforce, such as retail stores, restaurants, hospitals, manufacturing facilities, and call centers. Here's an explanation of the key components and functions of an employee scheduler system
+
+# Employee Database
+The system maintains a database of all employees, including their names, job roles, and time. 
+
+# Scheduling Calendar
+The heart of the system is a visual calendar that displays shifts, working hours, and days off. The supervisor or schedulers can view and edit the schedule on this calendar, making it easy to assign shifts and track work hours.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
