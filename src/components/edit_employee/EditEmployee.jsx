@@ -33,6 +33,10 @@ function EditEmployee() {
   const [percent, setPercent] = useState(0);
   const [profilePath, setProfilePath] = useState(employee.profilePath);
 
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
+  };
+
   const handleShiftChange = (e) => {
     setShift(e.target.value);
   };
@@ -74,20 +78,14 @@ function EditEmployee() {
       fullName: fullName,
       schedule: schedule,
       shift: shift,
+      startTime: startTime,
+      endTime: endTime,
       profileUrl: profileUrl,
       profilePath: profilePath,
       position: position,
     };
 
-    // Only update the start time if it is edited
-    if (startTime !== employee.startTime) {
-      updatedData.startTime = employee.startTime;
-    }
 
-    // Only update the end time if it is edited
-    if (endTime !== employee.endTime) {
-      updatedData.endTime = employee.endTime;
-    }
 
     await updateDoc(employeeRef, updatedData);
 
@@ -252,14 +250,12 @@ function EditEmployee() {
                   value={position}
                   type="combobox"
                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  onChange={(e) => {
-                    setPosition(e.target.value);
-                  }}
+                  onChange={handlePositionChange}
                 >
-                  <option value="IT Specialist">IT Specialist</option>
-                  <option value="Senior IT Specialist">
-                    Senior IT Specialist
-                  </option>
+                  <option value="IT SUPPORT SPECIALIST">IT Support Specialist</option>
+                  <option value="SENIOR IT SUPPORT SPECIALIST">Senior IT Support Specialist</option>
+                  <option value="IT SUPERVISOR">IT Supervisor</option>
+                  <option value="IT MANAGER">IT Manager</option>
                 </select>
               </div>
               <div className="md:col-span-5">

@@ -108,7 +108,7 @@ function EmployeeInformation() {
                       onClick={() =>
                         navigate("/homepage/employeeInformation/leave")
                       }
-                      className="text-slate-900 hover:text-cyan-600 mx-3"
+                      className="text-slate-900 hover:text-blue-500 mx-3"
                       title="Leave"
                     >
                       <TbCalendarTime size={25} />
@@ -117,14 +117,14 @@ function EmployeeInformation() {
                       onClick={() =>
                         navigate("/homepage/employeeInformation/absent")
                       }
-                      className="text-slate-900 hover:text-cyan-600 mx-3"
+                      className="text-slate-900 hover:text-yellow-500 mx-3"
                       title="Absent"
                     >
                       <TbCalendarX size={25} />
                     </button>
                     <button
                       onClick={() => handleClickRemove(employee.eid)}
-                      className="text-slate-900 hover:text-red-500 mx-3"
+                      className="text-slate-900 hover:text-red-600 mx-3"
                       title="Delete"
                     >
                       <RiDeleteBin7Line size={25} />
@@ -182,7 +182,7 @@ function EmployeeInformation() {
                       />
                     </div>
                   </div>
-                  <div className="grid grid-cols-7 ">
+                  <div className="font-bold grid grid-cols-7 ">
                     {days.map((day, index) => {
                       return (
                         <h1
@@ -208,21 +208,21 @@ function EmployeeInformation() {
                               className={cn(
                                 employee.leave[getIndex(employee, date)]
                                   ?.leaveType === "PLANNED"
-                                  ? "bg-blue-400 text-blue-900 font-bold"
+                                  ? "bg-blue-500 text-blue-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                      ?.leaveType === "UNPLANNED"
-                                  ? "bg-red-400 text-red-900 font-bold"
-                                  : employee.absent?.some(
+                                    ?.leaveType === "UNPLANNED"
+                                    ? "bg-red-500 text-red-900 font-bold"
+                                    : employee.absent?.some(
                                       (absent) =>
                                         absent.startDate <=
-                                          date.format("YYYY-MM-DD") &&
+                                        date.format("YYYY-MM-DD") &&
                                         absent.endDate >=
-                                          date.format("YYYY-MM-DD")
+                                        date.format("YYYY-MM-DD")
                                     )
-                                  ? "bg-orange-400 text-orange-900 font-bold"
-                                  : employee.schedule.includes(days[date.day()])
-                                  ? "bg-green-400 text-green-900 font-bold"
-                                  : "text-black",
+                                      ? "bg-orange-500 text-orange-900 font-bold"
+                                      : employee.schedule.includes(days[date.day()])
+                                        ? "bg-green-500 text-green-900 font-bold"
+                                        : "text-black",
 
                                 today ? "border border-black" : "",
 

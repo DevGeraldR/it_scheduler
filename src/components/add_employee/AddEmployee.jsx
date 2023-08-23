@@ -21,7 +21,7 @@ function AddEmployee() {
   const [startTime, setStartTime] = useState("00:00");
   const [endTime, setEndTime] = useState("12:00");
   const [isLoading, setIsLoading] = useState(false);
-  const [position, setPosition] = useState("IT Specialist");
+  const [position, setPosition] = useState("IT SUPPORT SPECIALIST");
   const [profile, setProfile] = useState(null);
   const [profileUrl, setProfileUrl] = useState("");
   // progress
@@ -37,6 +37,10 @@ function AddEmployee() {
 
   const handleEndTimeChange = (event) => {
     setEndTime(event.target.value);
+  };
+
+  const handlePositionChange = (event) => {
+    setPosition(event.target.value);
   };
 
   const handleShiftChange = (event) => {
@@ -252,14 +256,12 @@ function AddEmployee() {
                   value={position}
                   type="combobox"
                   className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                  onChange={(e) => {
-                    setPosition(e.target.value);
-                  }}
+                  onChange={handlePositionChange}
                 >
-                  <option value="IT Specialist">IT Specialist</option>
-                  <option value="Senior IT Specialist">
-                    Senior IT Specialist
-                  </option>
+                  <option value="IT SUPPORT SPECIALIST">IT Support Specialist</option>
+                  <option value="SENIOR IT SUPPORT SPECIALIST">Senior IT Support Specialist</option>
+                  <option value="IT SUPERVISOR">IT Supervisor</option>
+                  <option value="IT MANAGER">IT Manager</option>
                 </select>
               </div>
               <div className="md:col-span-5">
