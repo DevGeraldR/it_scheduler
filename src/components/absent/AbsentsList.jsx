@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ListAbsent from "./ListAbsent";
-import { BiSortZA } from "react-icons/bi";
-import { BiSortAZ } from "react-icons/bi";
+import { BiSortDown } from "react-icons/bi";
+import { BiSortUp } from "react-icons/bi";
 import { TbArrowsSort } from "react-icons/tb";
 
 function AbsentsList({ absents }) {
   const [sortBy, setSortBy] = useState("");
-  const [ascending, setAscending] = useState(true);
+  const [ascending, setAscending] = useState(false);
   const [sorting, setSorting] = useState("");
 
   return (
@@ -28,16 +28,16 @@ function AbsentsList({ absents }) {
                 id="sortingStartDate"
                 className="hover:text-yellow-400"
                 onClick={() => {
+                  setAscending(!ascending);
                   setSortBy("startDate");
                   setSorting("startDate");
-                  setAscending(!ascending);
                 }}
               >
                 {sorting === "startDate" ? (
                   ascending ? (
-                    <BiSortZA title="Z-A" />
+                    <BiSortUp title="Lowest To Highest" />
                   ) : (
-                    <BiSortAZ title="A-Z" />
+                    <BiSortDown title="Highest To Lowest" />
                   )
                 ) : (
                   <TbArrowsSort title="Sort" />

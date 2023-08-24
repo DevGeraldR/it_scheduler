@@ -189,7 +189,7 @@ function EditEmployee() {
               <p>Edit the employee's details</p>
             </div>
           </header>
-          <div className="bg-white border border-slate-400 rounded-b-lg shadow-lg p-4 px-4 md:p-8 mb-6 ">
+          <div className="bg-white border border-slate-400 rounded-b-lg shadow-lg p-4 px-4 md:p-8 mb-6">
             <div className="lg:col-span-2">
               <div className="grid gap-4 gap-y-4  text-sm grid-cols-1 md:grid-cols-5"></div>
               <div className="md:col-span-5 ">
@@ -205,9 +205,9 @@ function EditEmployee() {
                   }}
                 />
               </div>
-              <div className="md:col-span-5 ">
+              <div className="md:col-span-5 mb-5">
                 <label className="font-bold">New profile picture</label>
-                <div className="flex items-center mt-1">
+                <div className="flex items-center">
                   <input
                     type="file"
                     accept="image/*"
@@ -218,7 +218,7 @@ function EditEmployee() {
 
                   <button
                     onClick={handleClickUpload}
-                    className="ml-auto px-3 py-1 bg-slate-900 text-white rounded hover:bg-slate-600"
+                    className="mt-1 ml-auto px-3 py-1 bg-slate-900 text-white rounded hover:bg-slate-600"
                   >
                     Upload
                   </button>
@@ -241,7 +241,7 @@ function EditEmployee() {
                   </button>
                 )}
               </div>
-              <div className="md:col-span-5">
+              <div className="md:col-span-5 mb-5">
                 <label className="font-bold">Position</label>{" "}
                 <select
                   id="position"

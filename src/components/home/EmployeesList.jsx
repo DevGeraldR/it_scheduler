@@ -6,7 +6,7 @@ import { TbArrowsSort } from "react-icons/tb";
 
 function EmployeesList({ employees }) {
   const [sortBy, setSortBy] = useState("");
-  const [ascending, setAscending] = useState(true);
+  const [ascending, setAscending] = useState(false);
   const [sorting, setSorting] = useState("");
 
   return (
@@ -29,16 +29,16 @@ function EmployeesList({ employees }) {
                 id="sortingName"
                 className="hover:text-yellow-400"
                 onClick={() => {
+                  setAscending(!ascending);
                   setSortBy("fullName");
                   setSorting("fullName");
-                  setAscending(!ascending);
                 }}
               >
                 {sorting === "fullName" ? (
                   ascending ? (
-                    <BiSortZA title="Z-A" />
-                  ) : (
                     <BiSortAZ title="A-Z" />
+                  ) : (
+                    <BiSortZA title="Z-A" />
                   )
                 ) : (
                   <TbArrowsSort title="Sort" />
@@ -68,9 +68,9 @@ function EmployeesList({ employees }) {
               >
                 {sorting === "position" ? (
                   ascending ? (
-                    <BiSortZA title="Z-A" />
-                  ) : (
                     <BiSortAZ title="A-Z" />
+                  ) : (
+                    <BiSortZA title="Z-A" />
                   )
                 ) : (
                   <TbArrowsSort title="Sort" />
@@ -102,8 +102,8 @@ function EmployeesList({ employees }) {
                 ? 1
                 : -1
               : a[sortBy] > b[sortBy]
-                ? -1
-                : 1
+              ? -1
+              : 1
           )
           .map((employee, index) => {
             return (

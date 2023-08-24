@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import ListLeave from "./ListLeave";
 import { BiSortZA } from "react-icons/bi";
 import { BiSortAZ } from "react-icons/bi";
+import { BiSortDown } from "react-icons/bi";
+import { BiSortUp } from "react-icons/bi";
 import { TbArrowsSort } from "react-icons/tb";
 
 function LeaveList({ leaves }) {
   const [sortBy, setSortBy] = useState("");
-  const [ascending, setAscending] = useState(true);
+  const [ascending, setAscending] = useState(false);
   const [sorting, setSorting] = useState("");
   return (
     <table className="table w-full max-h-[500px]">
@@ -27,16 +29,16 @@ function LeaveList({ leaves }) {
                 id="sortingStartDate"
                 className="hover:text-yellow-400"
                 onClick={() => {
+                  setAscending(!ascending);
                   setSortBy("startDate");
                   setSorting("startDate");
-                  setAscending(!ascending);
                 }}
               >
                 {sorting === "startDate" ? (
                   ascending ? (
-                    <BiSortZA title="Z-A" />
+                    <BiSortUp title="Lowest To Highest" />
                   ) : (
-                    <BiSortAZ title="A-Z" />
+                    <BiSortDown title="Highest To Lowest" />
                   )
                 ) : (
                   <TbArrowsSort title="Sort" />
@@ -67,9 +69,9 @@ function LeaveList({ leaves }) {
               >
                 {sorting === "leaveType" ? (
                   ascending ? (
-                    <BiSortZA title="Z-A" />
-                  ) : (
                     <BiSortAZ title="A-Z" />
+                  ) : (
+                    <BiSortZA title="Z-A" />
                   )
                 ) : (
                   <TbArrowsSort title="Sort" />

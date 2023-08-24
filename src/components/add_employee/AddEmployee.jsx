@@ -506,7 +506,7 @@ function AddEmployee() {
         {isLoading ? (
           <button
             disabled
-            className=" mt-10 md:mt-0 bg-yellow-400 transition duration-300 ease-in-out transform hover:scale-100 text-black hover:bg-yellow-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+            className="bg-yellow-400 transition duration-300 ease-in-out transform hover:scale-100 text-black hover:bg-yellow-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
           >
             <svg
               className="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
