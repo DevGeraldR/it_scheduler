@@ -77,6 +77,10 @@ function AddAbsent() {
           as="div"
           className="relative z-10"
           onClose={() => {
+            setDate({
+              startDate: null,
+              endDate: null,
+            });
             setIsSuccessfulOpen(false);
           }}
         >

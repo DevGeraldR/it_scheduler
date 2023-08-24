@@ -27,7 +27,7 @@ function EmployeeInformation() {
   const [today, setToday] = useState(currentDate);
 
   // eslint-disable-next-line
-  const handleClickRemove = (eid) => {
+  const handleClickRemove = () => {
     setShowConfirmDialog(true);
   };
 
@@ -123,7 +123,7 @@ function EmployeeInformation() {
                       <TbCalendarX size={25} />
                     </button>
                     <button
-                      onClick={() => handleClickRemove(employee.eid)}
+                      onClick={() => handleClickRemove()}
                       className="text-slate-900 hover:text-red-600 mx-3"
                       title="Delete"
                     >
@@ -210,19 +210,19 @@ function EmployeeInformation() {
                                   ?.leaveType === "PLANNED"
                                   ? "bg-blue-500 text-blue-900 font-bold"
                                   : employee.leave[getIndex(employee, date)]
-                                    ?.leaveType === "UNPLANNED"
-                                    ? "bg-red-500 text-red-900 font-bold"
-                                    : employee.absent?.some(
+                                      ?.leaveType === "UNPLANNED"
+                                  ? "bg-red-500 text-red-900 font-bold"
+                                  : employee.absent?.some(
                                       (absent) =>
                                         absent.startDate <=
-                                        date.format("YYYY-MM-DD") &&
+                                          date.format("YYYY-MM-DD") &&
                                         absent.endDate >=
-                                        date.format("YYYY-MM-DD")
+                                          date.format("YYYY-MM-DD")
                                     )
-                                      ? "bg-orange-500 text-orange-900 font-bold"
-                                      : employee.schedule.includes(days[date.day()])
-                                        ? "bg-green-500 text-green-900 font-bold"
-                                        : "text-black",
+                                  ? "bg-orange-500 text-orange-900 font-bold"
+                                  : employee.schedule.includes(days[date.day()])
+                                  ? "bg-green-500 text-green-900 font-bold"
+                                  : "text-black",
 
                                 today ? "border border-black" : "",
 
@@ -271,7 +271,7 @@ function EmployeeInformation() {
                             {isLoading ? (
                               <button
                                 disabled
-                                className=" mt-10 md:mt-0 bg-red-400 transition duration-300 ease-in-out transform hover:scale-100 text-black hover:bg-red-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                                className="bg-red-400 transition duration-300 ease-in-out transform hover:scale-100 text-black hover:bg-red-500 focus-visible:ring-white inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                               >
                                 <svg
                                   className="w-5 h-5 mr-3 -ml-1 text-blue-900 animate-spin"

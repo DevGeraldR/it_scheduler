@@ -545,6 +545,9 @@ function AddEmployee() {
           as="div"
           className="relative z-10"
           onClose={() => {
+            setFullName("");
+            setEID("");
+            removeFile();
             setIsSuccessfulOpen(false);
           }}
         >
